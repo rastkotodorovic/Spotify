@@ -1,16 +1,13 @@
+import { Fragment, useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
 import { ClockIcon, HomeIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
+import useSpotify from "../hooks/useSpotify";
 
 const navigation = [
     { name: 'Home', href: '#', icon: HomeIcon, current: true },
     { name: 'Your library', href: '#', icon: ClockIcon, current: false },
-]
-const teams = [
-    { name: 'Engineering', href: '#', bgColorClass: 'bg-indigo-500' },
-    { name: 'Human Resources', href: '#', bgColorClass: 'bg-green-500' },
-    { name: 'Customer Success', href: '#', bgColorClass: 'bg-yellow-500' },
 ]
 
 function classNames(...classes: string[]) {
@@ -19,6 +16,18 @@ function classNames(...classes: string[]) {
 
 export default function Sidebar() {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const { data: session, status } = useSession();
+    const spotifyApi = useSpotify();
+    const [ playlists, setPlaylists ] = useState([]);
+
+    useEffect(() => {
+        if (spotifyApi.getAccessToken()) {
+            spotifyApi.getUserPlaylists()
+                .then((data) => {
+                    setPlaylists(data.body.items);
+                });
+        }
+    }, [session, spotifyApi]);
 
     return (
         <>
@@ -106,13 +115,13 @@ export default function Sidebar() {
                                             Playlists
                                         </h3>
                                         <div className="mt-1 space-y-1" role="group" aria-labelledby="mobile-teams-headline">
-                                            {teams.map((team) => (
+                                            {playlists.map((playlist) => (
                                                 <a
-                                                    key={team.name}
-                                                    href={team.href}
+                                                    key={playlist.id}
+                                                    href="#"
                                                     className="group flex items-center px-3 py-2 text-base leading-5 font-medium text-gray-600 rounded-md hover:text-gray-900 hover:bg-gray-50"
                                                 >
-                                                    <span className="truncate">{team.name}</span>
+                                                    <span className="truncate">{playlist.name}</span>
                                                 </a>
                                             ))}
                                         </div>
@@ -147,12 +156,12 @@ export default function Sidebar() {
                             <span className="flex min-w-0 items-center justify-between space-x-3">
                               <img
                                   className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
-                                  src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
-                                  alt=""
+                                  src={session?.user.image}
+                                  alt={session?.user.name}
                               />
                               <span className="flex-1 flex flex-col min-w-0">
-                                <span className="text-gray-900 text-sm font-medium truncate">Jessy Schwarz</span>
-                                <span className="text-gray-500 text-sm truncate">@jessyschwarz</span>
+                                    <span className="text-gray-900 text-sm font-medium truncate">{session?.user.name}</span>
+                                  <span className="text-gray-500 text-sm truncate">@{session?.user.email}</span>
                               </span>
                             </span>
                             <SelectorIcon
@@ -250,6 +259,7 @@ export default function Sidebar() {
                                                     active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                     'block px-4 py-2 text-sm'
                                                 )}
+                                                onClick={() => signOut()}
                                             >
                                                 Logout
                                             </a>
@@ -313,13 +323,13 @@ export default function Sidebar() {
                                 Playlists
                             </h3>
                             <div className="mt-4 space-y-1" role="group" aria-labelledby="desktop-teams-headline">
-                                {teams.map((team) => (
+                                {playlists.map((playlist) => (
                                     <a
-                                        key={team.name}
-                                        href={team.href}
+                                        key={playlist.id}
+                                        href="#"
                                         className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
                                     >
-                                        <span className="truncate">{team.name}</span>
+                                        <span className="truncate">{playlist.name}</span>
                                     </a>
                                 ))}
                             </div>
