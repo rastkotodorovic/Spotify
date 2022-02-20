@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../../atoms/songAtom";
+import { isPlayingState, trackIdState } from "../../../atoms/songAtom";
 import { useSession } from "next-auth/react";
-import useSpotify from "../../hooks/useSpotify";
-import useTrack from "../../hooks/useTrack";
+import useSpotify from "../../../hooks/useSpotify";
+import useTrack from "../../../hooks/useTrack";
 import { useCallback, useEffect, useState } from "react";
 import {
     FastForwardIcon,

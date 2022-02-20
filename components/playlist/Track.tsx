@@ -1,6 +1,6 @@
 import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../atoms/songAtom";
-import useSpotify from "../hooks/useSpotify";
+import { isPlayingState, trackIdState } from "../../atoms/songAtom";
+import useSpotify from "../../hooks/useSpotify";
 
 export default function Track({ track, number }) {
     function millisToMinutesAndSeconds(millis) {

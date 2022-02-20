@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 
-import { playlistIdState, playlistState } from "../atoms/playlistAtom";
+import { playlistIdState, playlistState } from "../../atoms/playlistAtom";
 import Tracks from "./Tracks";
-import useSpotify from "../hooks/useSpotify";
+import useSpotify from "../../hooks/useSpotify";
 import {useRouter} from "next/router";
 
 const projects = [
@@ -50,7 +50,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Main() {
+export default function Playlist() {
     const spotifyApi = useSpotify();
     const router = useRouter()
     const { playlistId } = router.query

@@ -1,27 +1,20 @@
 import { Fragment, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Link from 'next/link'
 import { signOut, useSession } from "next-auth/react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { ClockIcon, HomeIcon, XIcon } from "@heroicons/react/outline";
-import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
-import { useRecoilState } from "recoil";
+import { HeartIcon, SearchIcon, SelectorIcon } from "@heroicons/react/outline";
 
-import useSpotify from "../../hooks/useSpotify";
-import { playlistIdState } from "../../atoms/playlistAtom";
-import { useRouter } from "next/router";
-import Link from 'next/link'
-
-const navigation = [
-    { name: 'Home', href: '#', icon: HomeIcon, current: true },
-    { name: 'Your library', href: '#', icon: ClockIcon, current: false },
-]
+import useSpotify from "../../../hooks/useSpotify";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Sidebar() {
-    const [sidebarOpen, setSidebarOpen] = useState(false)
-    const { data: session, status } = useSession();
+    const [ sidebarOpen, setSidebarOpen ] = useState(false)
+    const { data: session } = useSession();
     const spotifyApi = useSpotify();
     const [ playlists, setPlaylists ] = useState([]);
     const router = useRouter();
@@ -34,6 +27,12 @@ export default function Sidebar() {
                 });
         }
     }, [session, spotifyApi]);
+
+    const navigation = [
+        { name: 'Home', href: '/', icon: HomeIcon, current: router.pathname === '/' },
+        { name: 'Your library', href: '/library',  icon: ClockIcon, current: false },
+        { name: 'Liked songs', href: '/library',  icon: HeartIcon, current: false },
+    ]
 
     return (
         <>
@@ -93,7 +92,6 @@ export default function Sidebar() {
                                         {navigation.map((item) => (
                                             <a
                                                 key={item.name}
-                                                href={item.href}
                                                 className={classNames(
                                                     item.current
                                                         ? 'bg-gray-100 text-gray-900'
@@ -302,28 +300,28 @@ export default function Sidebar() {
                     <nav className="px-3 mt-6">
                         <div className="space-y-1">
                             {navigation.map((item) => (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
-                                    className={classNames(
-                                        item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
-                                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                                    )}
-                                    aria-current={item.current ? 'page' : undefined}
-                                >
-                                    <item.icon
+                                <Link href={item.href}>
+                                    <a
+                                        key={item.name}
                                         className={classNames(
-                                            item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                            'mr-3 flex-shrink-0 h-6 w-6'
+                                            item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer'
                                         )}
-                                        aria-hidden="true"
-                                    />
-                                    {item.name}
-                                </a>
+                                        aria-current={item.current ? 'page' : undefined}
+                                    >
+                                        <item.icon
+                                            className={classNames(
+                                                item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                                'mr-3 flex-shrink-0 h-6 w-6'
+                                            )}
+                                            aria-hidden="true"
+                                        />
+                                        {item.name}
+                                    </a>
+                                </Link>
                             ))}
                         </div>
                         <div className="mt-8">
-                            {/* Secondary navigation */}
                             <h3
                                 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider"
                                 id="desktop-teams-headline"
@@ -334,8 +332,10 @@ export default function Sidebar() {
                                 {playlists.map((playlist) => (
                                     <a
                                         key={playlist.id}
-                                        href="#"
-                                        className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
+                                        className={classNames(
+                                            router.pathname === `/playlist/${playlist.id}` ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer'
+                                        )}
                                         onClick={() => router.push(`/playlist/${playlist.id}`)}
                                     >
                                         <span className="truncate">{playlist.name}</span>
