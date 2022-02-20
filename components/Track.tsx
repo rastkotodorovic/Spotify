@@ -1,8 +1,23 @@
+import { useRecoilState } from "recoil";
+import { isPlayingState, trackIdState } from "../atoms/songAtom";
+import useSpotify from "../hooks/useSpotify";
+
 export default function Track({ track, number }) {
     function millisToMinutesAndSeconds(millis) {
         const minutes = Math.floor(millis / 60000);
         const seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
+    const spotifyApi = useSpotify();
+    const [ trackId, setTrackId ] = useRecoilState(trackIdState);
+    const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState);
+
+    const playSong = () => {
+        setTrackId(track.track.id);
+        setIsPlaying(true);
+        spotifyApi.play({
+           uris: [ track.track.uri ],
+        });
     }
 
     return (
@@ -14,7 +29,11 @@ export default function Track({ track, number }) {
                         className={'flex-shrink-0 w-2.5 h-2.5 rounded-full'}
                         aria-hidden="true"
                     />
-                    <a href="#" className="truncate hover:text-gray-700">
+                    <a
+                        href="#"
+                        className="truncate hover:text-gray-700"
+                        onClick={playSong}
+                    >
                       <span>
                           {track.track.name}
                           <span className="text-gray-400 font-normal"> by {track.track.artists[0].name}</span>

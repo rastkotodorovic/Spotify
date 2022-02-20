@@ -1,22 +1,21 @@
 import type { NextPage } from 'next'
-import Head from "next/head";
 
 import Sidebar from "../components/Sidebar";
 import Main from "../components/Main";
+import Player from "../components/Player";
 
 const Home: NextPage = () => {
     return (
         <>
-            <Head>
-
-                <title>Spotify</title>
-            </Head>
             <div className="min-h-full">
                 <Sidebar/>
                 <Main />
+            </div>
+            <div className="sticky bottom-0">
+                <Player />
             </div>
         </>
     )
 }
 
-export default Home
+export default Home;
