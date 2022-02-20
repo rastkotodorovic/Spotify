@@ -5,8 +5,8 @@ import { ClockIcon, HomeIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import { useRecoilState } from "recoil";
 
-import useSpotify from "../hooks/useSpotify";
-import { playlistIdState } from "../atoms/playlistAtom";
+import useSpotify from "../../hooks/useSpotify";
+import { playlistIdState } from "../../atoms/playlistAtom";
 
 const navigation = [
     { name: 'Home', href: '#', icon: HomeIcon, current: true },

@@ -1,19 +1,13 @@
 import type { NextPage } from 'next'
 
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/sidebar/Sidebar";
 import Main from "../components/Main";
-import Player from "../components/Player";
+import Player from "../components/player/Player";
 
 const Home: NextPage = () => {
     return (
         <>
-            <div className="min-h-full">
-                <Sidebar/>
-                <Main />
-            </div>
-            <div className="sticky bottom-0">
-                <Player />
-            </div>
+            <Main />
         </>
     )
 }

@@ -1,8 +1,8 @@
 import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../atoms/songAtom";
+import { isPlayingState, trackIdState } from "../../atoms/songAtom";
 import { useSession } from "next-auth/react";
-import useSpotify from "../hooks/useSpotify";
-import useTrack from "../hooks/useTrack";
+import useSpotify from "../../hooks/useSpotify";
+import useTrack from "../../hooks/useTrack";
 import { useCallback, useEffect, useState } from "react";
 import {
     FastForwardIcon,
@@ -67,7 +67,7 @@ export default function Player() {
     );
 
     return (
-        <div className="h-24 bg-black text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
+        <div className="h-20 bg-black text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
             <div className="flex items-center space-x-4">
                 <img
                     className="hidden md:inline h-10 w-10"
