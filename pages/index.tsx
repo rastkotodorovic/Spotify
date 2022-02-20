@@ -11,7 +11,7 @@ const Home: NextPage = () => {
 
                 <title>Spotify</title>
             </Head>
-            <div className="min-h-full h-screen overflow-hidden">
+            <div className="min-h-full">
                 <Sidebar/>
                 <Main />
             </div>

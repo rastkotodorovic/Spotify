@@ -3,7 +3,10 @@ import { signOut, useSession } from "next-auth/react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { ClockIcon, HomeIcon, XIcon } from "@heroicons/react/outline";
 import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
+import { useRecoilState } from "recoil";
+
 import useSpotify from "../hooks/useSpotify";
+import { playlistIdState } from "../atoms/playlistAtom";
 
 const navigation = [
     { name: 'Home', href: '#', icon: HomeIcon, current: true },
@@ -19,6 +22,7 @@ export default function Sidebar() {
     const { data: session, status } = useSession();
     const spotifyApi = useSpotify();
     const [ playlists, setPlaylists ] = useState([]);
+    const [ playlistId, setPlaylistId ] = useRecoilState(playlistIdState);
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
@@ -328,6 +332,7 @@ export default function Sidebar() {
                                         key={playlist.id}
                                         href="#"
                                         className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
+                                        onClick={() => setPlaylistId(playlist.id)}
                                     >
                                         <span className="truncate">{playlist.name}</span>
                                     </a>

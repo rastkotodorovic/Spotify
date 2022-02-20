@@ -1,7 +1,11 @@
 import { MenuAlt1Icon } from "@heroicons/react/outline";
 import { ChevronRightIcon, DotsVerticalIcon, SearchIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { playlistIdState, playlistState } from "../atoms/playlistAtom";
+import Tracks from "./Tracks";
+import useSpotify from "../hooks/useSpotify";
 
 const projects = [
     {
@@ -41,13 +45,25 @@ const projects = [
         bgColorClass: 'bg-pink-600',
     },
 ]
-const pinnedProjects = projects.filter((project) => project.pinned)
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function Main() {
+    const spotifyApi = useSpotify();
+    const playlistId = useRecoilValue(playlistIdState);
+    const [ playlist, setPlaylist ] = useRecoilState(playlistState);
+
+    useEffect(() => {
+        if (spotifyApi.getAccessToken()) {
+            spotifyApi.getPlaylist(playlistId)
+                .then((data) => {
+                    setPlaylist(data.body);
+                });
+        }
+    }, [spotifyApi.getAccessToken(), playlistId]);
+    console.log(playlist);
     return (
         <div className="lg:pl-64 flex flex-col">
             {/* Search header */}
@@ -218,7 +234,7 @@ export default function Main() {
                         </button>
                     </div>
                 </div>
-                {/* Pinned projects */}
+                {/* Current playlist */}
                 <div className="px-4 mt-6 sm:px-6 lg:px-8">
                     <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Current playlist</h2>
                     <ul role="list"
@@ -230,15 +246,15 @@ export default function Main() {
                                     'flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
                                 )}
                             >
-                                AS
+                                <img src={playlist?.images[0]?.url} alt="" className="rounded-l-md" />
                             </div>
                             <div
                                 className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
                                 <div className="flex-1 px-4 py-2 text-sm truncate">
                                     <a href="#" className="text-gray-900 font-medium hover:text-gray-600">
-                                        77-05
+                                        {playlist?.name}
                                     </a>
-                                    <p className="text-gray-500">15 Members</p>
+                                    <p className="text-gray-500">{playlist?.followers?.total} followers</p>
                                 </div>
                             </div>
                         </li>
@@ -253,17 +269,16 @@ export default function Main() {
                     <ul role="list" className="mt-3 border-t border-gray-200 divide-y divide-gray-100">
                         {projects.map((project) => (
                             <li key={project.id}>
-                                <a href="#"
-                                    className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
-                                                  <span className="flex items-center truncate space-x-3">
-                                                    <span
-                                                        className={classNames(project.bgColorClass, 'w-2.5 h-2.5 flex-shrink-0 rounded-full')}
-                                                        aria-hidden="true"
-                                                    />
-                                                    <span className="font-medium truncate text-sm leading-6">
-                                                      {project.title} <span className="truncate font-normal text-gray-500">in {project.team}</span>
-                                                    </span>
-                                                  </span>
+                                <a href="#" className="group flex items-center justify-between px-4 py-4 hover:bg-gray-50 sm:px-6">
+                                      <span className="flex items-center truncate space-x-3">
+                                        <span
+                                            className={classNames(project.bgColorClass, 'w-2.5 h-2.5 flex-shrink-0 rounded-full')}
+                                            aria-hidden="true"
+                                        />
+                                        <span className="font-medium truncate text-sm leading-6">
+                                          {project.title} <span className="truncate font-normal text-gray-500">in {project.team}</span>
+                                        </span>
+                                      </span>
                                     <ChevronRightIcon
                                         className="ml-4 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                         aria-hidden="true"
@@ -292,42 +307,7 @@ export default function Main() {
                                 <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
                             </tr>
                             </thead>
-                            <tbody className="bg-white divide-y divide-gray-100">
-                            {projects.map((project) => (
-                                <tr key={project.id}>
-                                    <td className="px-6 py-4 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
-                                        <div className="flex items-center space-x-3 lg:pl-2">
-                                            <div
-                                                className={classNames(project.bgColorClass, 'flex-shrink-0 w-2.5 h-2.5 rounded-full')}
-                                                aria-hidden="true"
-                                            />
-                                            <a href="#" className="truncate hover:text-gray-600">
-                                              <span>
-                                                {project.title}
-                                              </span>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-3 text-sm text-gray-500 font-medium">
-                                        <div className="flex items-center space-x-2">
-                                            <div className="flex flex-shrink-0 -space-x-1">
-                                                77-05
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                                        {project.lastUpdated}
-                                    </td>
-                                    <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
-                                        <div className="flex items-center space-x-2">
-                                            <div className="flex flex-shrink-0 -space-x-1">
-                                                2:55
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                            </tbody>
+                            <Tracks projects={projects} />
                         </table>
                     </div>
                 </div>
