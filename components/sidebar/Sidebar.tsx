@@ -7,6 +7,8 @@ import { useRecoilState } from "recoil";
 
 import useSpotify from "../../hooks/useSpotify";
 import { playlistIdState } from "../../atoms/playlistAtom";
+import { useRouter } from "next/router";
+import Link from 'next/link'
 
 const navigation = [
     { name: 'Home', href: '#', icon: HomeIcon, current: true },
@@ -22,7 +24,7 @@ export default function Sidebar() {
     const { data: session, status } = useSession();
     const spotifyApi = useSpotify();
     const [ playlists, setPlaylists ] = useState([]);
-    const [ playlistId, setPlaylistId ] = useRecoilState(playlistIdState);
+    const router = useRouter();
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
@@ -142,14 +144,16 @@ export default function Sidebar() {
 
             {/* Static sidebar for desktop */}
             <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-gray-100">
-                <div className="flex items-center flex-shrink-0 px-6">
-                    <img
-                        className="h-8 w-auto"
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png"
-                        alt="Workflow"
-                    />
-                    <p className="ml-4 text-lg">Spotify</p>
-                </div>
+                <Link href="/">
+                    <div className="flex items-center flex-shrink-0 px-6 cursor-pointer">
+                        <img
+                            className="h-8 w-auto"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png"
+                            alt="Workflow"
+                        />
+                        <p className="ml-4 text-lg">Spotify</p>
+                    </div>
+                </Link>
                 {/* Sidebar component, swap this element with another sidebar if you like */}
                 <div className="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
                     {/* User account dropdown */}
@@ -332,7 +336,7 @@ export default function Sidebar() {
                                         key={playlist.id}
                                         href="#"
                                         className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 rounded-md hover:text-gray-900 hover:bg-gray-50"
-                                        onClick={() => setPlaylistId(playlist.id)}
+                                        onClick={() => router.push(`/playlist/${playlist.id}`)}
                                     >
                                         <span className="truncate">{playlist.name}</span>
                                     </a>

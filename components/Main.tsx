@@ -1,11 +1,11 @@
-import { MenuAlt1Icon } from "@heroicons/react/outline";
-import { ChevronRightIcon, DotsVerticalIcon, SearchIcon } from "@heroicons/react/solid";
-import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { ChevronRightIcon } from "@heroicons/react/solid";
+
 import { playlistIdState, playlistState } from "../atoms/playlistAtom";
 import Tracks from "./Tracks";
 import useSpotify from "../hooks/useSpotify";
+import {useRouter} from "next/router";
 
 const projects = [
     {
@@ -52,11 +52,12 @@ function classNames(...classes: string[]) {
 
 export default function Main() {
     const spotifyApi = useSpotify();
-    const playlistId = useRecoilValue(playlistIdState);
+    const router = useRouter()
+    const { playlistId } = router.query
     const [ playlist, setPlaylist ] = useRecoilState(playlistState);
 
     useEffect(() => {
-        if (spotifyApi.getAccessToken()) {
+        if (spotifyApi.getAccessToken() && playlistId) {
             spotifyApi.getPlaylist(playlistId)
                 .then((data) => {
                     setPlaylist(data.body);
