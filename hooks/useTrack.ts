@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useSession} from "next-auth/react";
 import useSpotify from "./useSpotify";
 import {useRecoilState} from "recoil";
-import {trackIdState} from "../atoms/songAtom";
+import {trackIdState} from "../atoms/trackAtom";
 
 export default function useTrack() {
     const [ trackId, setTrackId ] = useRecoilState(trackIdState);

@@ -1,8 +1,9 @@
-import {useRecoilValue} from "recoil";
-import {playlistState} from "../../atoms/playlistAtom";
+import { useRecoilValue } from "recoil";
+
+import { playlistState } from "../../atoms/playlistAtom";
 import Track from "./Track";
 
-export default function Tracks({ projects }) {
+export default function Tracks() {
     const playlist = useRecoilValue(playlistState);
 
     return (

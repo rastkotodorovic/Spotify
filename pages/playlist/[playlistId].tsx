@@ -1,11 +1,11 @@
 import type { NextPage } from 'next'
 
-import Playlist from "../../components/playlist/Playlist";
+import SelectedPlaylist from "../../components/playlist/SelectedPlaylist";
 
 const Playlist: NextPage = () => {
     return (
         <>
-            <Playlist />
+            <SelectedPlaylist />
         </>
     )
 }

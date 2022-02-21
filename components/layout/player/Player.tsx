@@ -1,18 +1,21 @@
-import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../../../atoms/songAtom";
-import { useSession } from "next-auth/react";
-import useSpotify from "../../../hooks/useSpotify";
-import useTrack from "../../../hooks/useTrack";
 import { useCallback, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { useSession } from "next-auth/react";
 import {
     FastForwardIcon,
     PauseIcon,
     PlayIcon,
     ReplyIcon,
     RewindIcon,
-    SwitchHorizontalIcon, VolumeOffIcon, VolumeUpIcon
+    SwitchHorizontalIcon,
+    VolumeOffIcon,
+    VolumeUpIcon
 } from "@heroicons/react/solid";
 import { debounce } from 'lodash';
+
+import { isPlayingState, trackIdState } from "../../../atoms/trackAtom";
+import useSpotify from "../../../hooks/useSpotify";
+import useTrack from "../../../hooks/useTrack";
 
 export default function Player() {
     const { data: session, status } = useSession();
@@ -62,7 +65,7 @@ export default function Player() {
     const debouncedAdjustVolume = useCallback(
       debounce((volume) => {
           spotifyApi.setVolume(volume).catch((error) => {});
-      }, 500),
+      }, 200),
         []
     );
 

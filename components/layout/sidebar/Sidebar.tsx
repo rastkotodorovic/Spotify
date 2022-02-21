@@ -9,11 +9,11 @@ import { HeartIcon, SearchIcon, SelectorIcon } from "@heroicons/react/outline";
 import useSpotify from "../../../hooks/useSpotify";
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(' ');
 }
 
 export default function Sidebar() {
-    const [ sidebarOpen, setSidebarOpen ] = useState(false)
+    const [ sidebarOpen, setSidebarOpen ] = useState(false);
     const { data: session } = useSession();
     const spotifyApi = useSpotify();
     const [ playlists, setPlaylists ] = useState([]);

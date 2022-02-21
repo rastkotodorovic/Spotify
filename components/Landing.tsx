@@ -7,7 +7,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function HomePage() {
+export default function Landing() {
     const { data: session } = useSession();
     const spotifyApi = useSpotify();
     const [ featuredPlaylists, setFeaturedPlaylists ] = useState([]);

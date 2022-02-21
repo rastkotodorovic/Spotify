@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../../atoms/songAtom";
+import { isPlayingState, trackIdState } from "../../atoms/trackAtom";
 import useSpotify from "../../hooks/useSpotify";
 
 export default function Track({ track, number }) {
@@ -30,8 +30,7 @@ export default function Track({ track, number }) {
                         aria-hidden="true"
                     />
                     <a
-                        href="#"
-                        className="truncate hover:text-gray-700"
+                        className="truncate hover:text-gray-700 cursor-pointer"
                         onClick={playSong}
                     >
                       <span>

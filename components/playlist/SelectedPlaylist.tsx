@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 
-import { playlistIdState, playlistState } from "../../atoms/playlistAtom";
+import { playlistState } from "../../atoms/playlistAtom";
 import Tracks from "./Tracks";
 import useSpotify from "../../hooks/useSpotify";
 import {useRouter} from "next/router";
@@ -50,7 +50,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Playlist() {
+export default function SelectedPlaylist() {
     const spotifyApi = useSpotify();
     const router = useRouter()
     const { playlistId } = router.query
@@ -137,7 +137,7 @@ export default function Playlist() {
                             <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
                         </tr>
                         </thead>
-                        <Tracks projects={projects} />
+                        <Tracks />
                     </table>
                 </div>
             </div>
