@@ -2,7 +2,7 @@ export default function LeftSide({ track }) {
     return (
         <div className="flex items-center space-x-4">
             <img
-                className="hidden md:inline h-10 w-10"
+                className="hidden md:inline h-16 w-16"
                 src={track?.album?.images?.[0]?.url}
                 alt=""
             />
