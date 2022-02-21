@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { useRouter } from "next/router";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 
 import { playlistState } from "../../atoms/playlistAtom";
 import Tracks from "./Tracks";
 import useSpotify from "../../hooks/useSpotify";
-import {useRouter} from "next/router";
 
 const projects = [
     {
