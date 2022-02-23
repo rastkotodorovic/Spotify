@@ -1,23 +1,21 @@
 import { useRecoilState } from "recoil";
-import { isPlayingState, trackIdState } from "../../atoms/trackAtom";
+import {isPlayingState, seekState, trackIdState} from "../../atoms/trackAtom";
 import useSpotify from "../../hooks/useSpotify";
+import millisToMinutesAndSeconds from "../../lib/time";
 
 export default function Track({ track, number }) {
-    function millisToMinutesAndSeconds(millis) {
-        const minutes = Math.floor(millis / 60000);
-        const seconds = ((millis % 60000) / 1000).toFixed(0);
-        return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-    }
     const spotifyApi = useSpotify();
     const [ trackId, setTrackId ] = useRecoilState(trackIdState);
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState);
+    const [ seek, setSeek ] = useRecoilState(seekState);
 
     const playSong = () => {
         setTrackId(track.track.id);
+        setSeek(0);
         setIsPlaying(true);
         spotifyApi.play({
            uris: [ track.track.uri ],
-        });
+        }).catch((err) => console.log(err));
     }
 
     return (

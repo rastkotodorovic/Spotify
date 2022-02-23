@@ -33,7 +33,7 @@ export default function Player() {
     };
 
     return (
-        <div className="h-28 bg-gray-100 border-t border-green-600 text-black grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
+        <div className="h-24 bg-gray-100 border-t border-green-600 text-black grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
             <LeftSide track={track} />
 
             <Center spotifyApi={spotifyApi} track={track} />

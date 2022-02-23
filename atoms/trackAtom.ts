@@ -9,3 +9,8 @@ export const isPlayingState = atom({
     key: "isPlayingState",
     default: false,
 });
+
+export const seekState = atom({
+    key: "seekState",
+    default: 0,
+});
