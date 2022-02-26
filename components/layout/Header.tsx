@@ -1,11 +1,22 @@
+import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/outline";
+import { useRouter } from "next/router";
+
 export default function Header({ children }) {
+    const router = useRouter();
+    console.log(router);
     return (
         <div className="lg:pl-64 flex flex-col">
             <main className="flex-1">
                 <div
                     className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-                    <div className="flex-1 min-w-0">
-                        <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Home</h1>
+                    <div className="flex justify-between">
+                        <ChevronLeftIcon
+                            className="w-8 h-8 mr-6 bg-gray-100 p-1 rounded-full cursor-pointer"
+                            onClick={() => router.back()}
+                        />
+                        {/*<ChevronRightIcon*/}
+                        {/*    className="w-8 h-8 bg-gray-100 p-1 rounded-full cursor-pointer"*/}
+                        {/*/>*/}
                     </div>
                     <div className="mt-4 flex sm:mt-0 sm:ml-4">
                         <button

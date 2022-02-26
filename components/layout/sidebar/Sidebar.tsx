@@ -15,9 +15,9 @@ export default function Sidebar() {
         <>
             <div className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:border-r lg:border-gray-200 lg:pt-5 lg:pb-4 lg:bg-gray-100">
                 <Link href="/">
-                    <div className="flex items-center flex-shrink-0 px-6 cursor-pointer">
+                    <div className="flex items-center flex-shrink-0 px-6 cursor-pointer ml-1">
                         <img
-                            className="h-8 w-auto"
+                            className="h-9 w-auto"
                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/1024px-Spotify_logo_without_text.svg.png"
                             alt="Workflow"
                         />

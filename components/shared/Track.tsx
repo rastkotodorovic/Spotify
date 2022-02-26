@@ -19,7 +19,10 @@ export default function Track({ track, number }) {
     }
 
     return (
-        <tr>
+        <tr
+            className={`hover:bg-gray-100 cursor-pointer ${trackId === track.track.id ? 'bg-gray-100' : ''}`}
+            onClick={playSong}
+        >
             <td className="px-6 py-4 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
                 <div className="flex items-center space-x-3 lg:pl-2">
                     <p className="text-sm text-gray-500">{++number}</p>
@@ -27,10 +30,7 @@ export default function Track({ track, number }) {
                         className={'flex-shrink-0 w-2.5 h-2.5 rounded-full'}
                         aria-hidden="true"
                     />
-                    <a
-                        className="truncate hover:text-gray-700 cursor-pointer"
-                        onClick={playSong}
-                    >
+                    <a className="truncate hover:text-gray-700 cursor-pointer">
                       <span>
                           {track.track.name}
                           <span className="text-gray-400 font-normal"> by {track.track.artists[0].name}</span>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ClockIcon, HeartIcon, HomeIcon } from "@heroicons/react/outline";
+import { LibraryIcon, HeartIcon, HomeIcon } from "@heroicons/react/outline";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ');
@@ -8,8 +8,8 @@ function classNames(...classes: string[]) {
 export default function Navigation({ router }) {
     const navigation = [
         { name: 'Home', href: '/', icon: HomeIcon, current: router.pathname === '/' },
-        { name: 'Your library', href: '/library',  icon: ClockIcon, current: false },
-        { name: 'Liked songs', href: '/library',  icon: HeartIcon, current: false },
+        { name: 'Your library', href: '/collection/playlists',  icon: LibraryIcon, current: router.pathname === '/collection/playlists' },
+        { name: 'Liked songs', href: '/collection/tracks',  icon: HeartIcon, current: router.pathname === '/collection/tracks' },
     ]
 
     return (
