@@ -1,5 +1,6 @@
-import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/outline";
+import { ChevronLeftIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
+import Link from 'next/link'
 
 export default function Header({ children }) {
     const router = useRouter();
@@ -17,6 +18,25 @@ export default function Header({ children }) {
                         {/*<ChevronRightIcon*/}
                         {/*    className="w-8 h-8 bg-gray-100 p-1 rounded-full cursor-pointer"*/}
                         {/*/>*/}
+                        {router.pathname === '/collection/playlists' || router.pathname === '/collection/albums' || router.pathname === '/collection/artists' ? (
+                            <>
+                                <Link href="/collection/playlists">
+                                    <p className="mr-2 cursor-pointer">
+                                        Playlists
+                                    </p>
+                                </Link>
+                                <Link href="/collection/artists" className="mr-2 cursor-pointer">
+                                    <p className="mr-2 cursor-pointer">
+                                        Artists
+                                    </p>
+                                </Link>
+                                <Link href="/collection/albums">
+                                    <p className="cursor-pointer">
+                                        Albums
+                                    </p>
+                                </Link>
+                            </>
+                            ) : ''}
                     </div>
                     <div className="mt-4 flex sm:mt-0 sm:ml-4">
                         <button

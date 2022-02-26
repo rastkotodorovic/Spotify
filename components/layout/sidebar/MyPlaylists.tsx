@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
 import useSpotify from "../../../hooks/useSpotify";
+import { myPlaylists } from "../../../atoms/playlistAtom";
+import {useRecoilState} from "recoil";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function MyPlaylists({ router, session }) {
-    const [ playlists, setPlaylists ] = useState([]);
+    const [ playlists, setPlaylists ] = useRecoilState(myPlaylists);
     const spotifyApi = useSpotify();
 
     useEffect(() => {

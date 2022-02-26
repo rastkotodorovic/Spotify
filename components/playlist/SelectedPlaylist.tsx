@@ -53,7 +53,7 @@ export default function SelectedPlaylist() {
                 </ul>
             </div>
 
-            <Tracks playlist={playlist} />
+            <Tracks tracks={playlist?.tracks} />
         </>
     )
 }

@@ -3,8 +3,7 @@ import { useRecoilValue } from "recoil";
 import { playlistState } from "../../atoms/playlistAtom";
 import Track from "./Track";
 
-export default function Tracks({ playlist }) {
-    console.log(playlist);
+export default function Tracks({ tracks }) {
     return (
         <div className="hidden mt-8 sm:block">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">
@@ -24,7 +23,7 @@ export default function Tracks({ playlist }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
-                    {playlist?.items.map((track, index) => (
+                    {tracks?.items.map((track, index) => (
                         <Track key={track.track.id} track={track} number={index} />
                     ))}
                     </tbody>
