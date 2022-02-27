@@ -11,7 +11,7 @@ export default function Layout({ children }) {
                   {children}
               </Header>
           </div>
-          <div className="sticky bottom-0">
+          <div className="fixed w-full bottom-0 ">
               <Player />
           </div>
       </>

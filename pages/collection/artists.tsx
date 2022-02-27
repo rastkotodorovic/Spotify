@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
-import MyPlaylists from "../../components/collection/MyPlaylists";
+import MyArtists from "../../components/collection/MyArtists";
 
 const Artists: NextPage = () => {
     return (
         <>
-            hi
+            <MyArtists />
         </>
     )
 }

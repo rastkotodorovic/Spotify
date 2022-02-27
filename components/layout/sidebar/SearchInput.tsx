@@ -1,6 +1,18 @@
-import {SearchIcon} from "@heroicons/react/outline";
+import { SearchIcon } from "@heroicons/react/outline";
+import { useCallback } from "react";
+import { useRouter } from "next/router";
+import { debounce } from 'lodash';
 
 export default function SearchInput() {
+    const router = useRouter();
+
+    const debouncedSearch = useCallback(
+        debounce((query) => {
+            query ? router.push(`/search?query=${query}`) : router.push('/');
+        }, 200),
+        []
+    );
+
     return (
         <div className="px-3 mt-5">
             <label htmlFor="search" className="sr-only">
@@ -19,6 +31,7 @@ export default function SearchInput() {
                     id="search"
                     className="focus:ring-indigo-500 py-2 focus:border-indigo-500 block w-full pl-9 sm:text-sm border-gray-300 rounded-md"
                     placeholder="Search"
+                    onChange={(e) => debouncedSearch(e.target.value)}
                 />
             </div>
         </div>
