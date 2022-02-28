@@ -1,10 +1,10 @@
-import { ChevronLeftIcon } from "@heroicons/react/outline";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Link from 'next/link'
 
 export default function Header({ children }) {
     const router = useRouter();
-    console.log(router);
+
     return (
         <div className="lg:pl-64 flex flex-col">
             <main className="flex-1">
@@ -15,9 +15,9 @@ export default function Header({ children }) {
                             className="w-8 h-8 mr-6 bg-gray-100 p-1 rounded-full cursor-pointer"
                             onClick={() => router.back()}
                         />
-                        {/*<ChevronRightIcon*/}
-                        {/*    className="w-8 h-8 bg-gray-100 p-1 rounded-full cursor-pointer"*/}
-                        {/*/>*/}
+                        <ChevronRightIcon
+                            className="w-8 h-8 bg-gray-100 p-1 rounded-full cursor-pointer"
+                        />
                         {router.pathname === '/collection/playlists' || router.pathname === '/collection/albums' || router.pathname === '/collection/artists' ? (
                             <>
                                 <Link href="/collection/playlists">
