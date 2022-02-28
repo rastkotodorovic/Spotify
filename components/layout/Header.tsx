@@ -19,23 +19,23 @@ export default function Header({ children }) {
                             className="w-8 h-8 bg-gray-100 p-1 rounded-full cursor-pointer"
                         />
                         {router.pathname === '/collection/playlists' || router.pathname === '/collection/albums' || router.pathname === '/collection/artists' ? (
-                            <>
+                            <div className="flex justify-between ml-7 inline-block align-middle">
                                 <Link href="/collection/playlists">
-                                    <p className="mr-2 cursor-pointer">
+                                    <p className={`cursor-pointer text-sm text-gray-700 p-2 px-4 rounded-lg ${router.pathname === '/collection/playlists' ? 'bg-gray-100' : ''}`}>
                                         Playlists
                                     </p>
                                 </Link>
                                 <Link href="/collection/artists" className="mr-2 cursor-pointer">
-                                    <p className="mr-2 cursor-pointer">
+                                    <p className={`cursor-pointer text-sm text-gray-700 p-2 px-4 rounded-lg ${router.pathname === '/collection/artists' ? 'bg-gray-100' : ''}`}>
                                         Artists
                                     </p>
                                 </Link>
                                 <Link href="/collection/albums">
-                                    <p className="cursor-pointer">
+                                    <p className={`cursor-pointer text-sm text-gray-700 p-2 px-4 rounded-lg ${router.pathname === '/collection/albums' ? 'bg-gray-100' : ''}`}>
                                         Albums
                                     </p>
                                 </Link>
-                            </>
+                            </div>
                             ) : ''}
                     </div>
                     <div className="mt-4 flex sm:mt-0 sm:ml-4">
