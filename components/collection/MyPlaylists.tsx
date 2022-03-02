@@ -1,15 +1,14 @@
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil"
 
-import { myPlaylists } from "../../atoms/playlistAtom";
-import Card from "../shared/Card";
-import Cards from "../shared/Cards";
+import { myPlaylists } from "../../atoms/playlistAtom"
+import Cards from "../shared/Cards"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function MyPlaylists() {
-    const playlists = useRecoilValue(myPlaylists);
+    const playlists = useRecoilValue(myPlaylists)
 
     return (
         <div className="px-4 mt-6 sm:px-6 lg:px-8">

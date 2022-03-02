@@ -1,30 +1,25 @@
-import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react"
 
-import { myPlaylists } from "../../atoms/playlistAtom";
-import {useEffect, useState} from "react";
-import useSpotify from "../../hooks/useSpotify";
-import {useRouter} from "next/router";
-import set = Reflect.set;
-import {signIn} from "next-auth/react";
+import useSpotify from "../../hooks/useSpotify"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function MyAlbums() {
-    const spotifyApi = useSpotify();
-    const [ albums, setAlbums ] = useState([]);
+    const spotifyApi = useSpotify()
+    const [ albums, setAlbums ] = useState([])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getMySavedAlbums()
                 .then(function(data) {
-                    setAlbums(data.body.items);
+                    setAlbums(data.body.items)
                 }, function(err) {
-                    console.log('Something went wrong!', err);
+                    console.log('Something went wrong!', err)
                 });
         }
-    }, [spotifyApi.getAccessToken()]);
+    }, [spotifyApi.getAccessToken()])
 
     return (
         <div className="px-4 mt-6 sm:px-6 lg:px-8">

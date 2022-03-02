@@ -1,15 +1,15 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
 import Link from 'next/link'
-import { useSession } from "next-auth/react";
+import { useSession } from "next-auth/react"
 
-import Profile from "./Profile";
-import SearchInput from "./SearchInput";
-import Navigation from "./Navigation";
-import MyPlaylists from "./MyPlaylists";
+import Profile from "./Profile"
+import SearchInput from "./SearchInput"
+import Navigation from "./Navigation"
+import MyPlaylists from "./MyPlaylists"
 
 export default function Sidebar() {
-    const { data: session } = useSession();
-    const router = useRouter();
+    const { data: session } = useSession()
+    const router = useRouter()
 
     return (
         <>

@@ -1,17 +1,17 @@
-import { SearchIcon } from "@heroicons/react/outline";
-import { useCallback } from "react";
-import { useRouter } from "next/router";
-import { debounce } from 'lodash';
+import { SearchIcon } from "@heroicons/react/outline"
+import { useCallback } from "react"
+import { useRouter } from "next/router"
+import { debounce } from 'lodash'
 
 export default function SearchInput() {
-    const router = useRouter();
+    const router = useRouter()
 
     const debouncedSearch = useCallback(
         debounce((query) => {
-            query ? router.push(`/search?query=${query}`) : router.push('/');
+            query ? router.push(`/search?query=${query}`) : router.push('/')
         }, 200),
         []
-    );
+    )
 
     return (
         <div className="px-3 mt-5">

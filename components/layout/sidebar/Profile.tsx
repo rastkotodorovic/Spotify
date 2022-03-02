@@ -1,10 +1,10 @@
-import { Menu, Transition } from "@headlessui/react";
-import { SelectorIcon } from "@heroicons/react/outline";
-import { Fragment } from "react";
-import { signOut } from "next-auth/react";
+import { Menu, Transition } from "@headlessui/react"
+import { SelectorIcon } from "@heroicons/react/outline"
+import { Fragment } from "react"
+import { signOut } from "next-auth/react"
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(' ')
 }
 
 export default function Profile({ session }) {

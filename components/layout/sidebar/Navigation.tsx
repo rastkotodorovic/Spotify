@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { LibraryIcon, HeartIcon, HomeIcon } from "@heroicons/react/outline";
+import Link from "next/link"
+import { LibraryIcon, HeartIcon, HomeIcon } from "@heroicons/react/outline"
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(' ')
 }
 
 export default function Navigation({ router }) {

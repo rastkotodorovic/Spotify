@@ -11,5 +11,5 @@ export async function middleware(req: NextRequest) {
         return NextResponse.next();
     }
 
-    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/login`);
+    return NextResponse.redirect(`http://localhost:3000/login`);
 }

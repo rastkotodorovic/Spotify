@@ -1,20 +1,20 @@
-import { VolumeOffIcon, VolumeUpIcon } from "@heroicons/react/solid";
-import { useCallback, useEffect, useState } from "react";
-import { debounce } from 'lodash';
+import { VolumeOffIcon, VolumeUpIcon } from "@heroicons/react/solid"
+import { useCallback, useEffect, useState } from "react"
+import { debounce } from 'lodash'
 
 export default function RightSide({ spotifyApi }) {
-    const [ volume, setVolume ] = useState(50);
+    const [ volume, setVolume ] = useState(50)
 
     useEffect(() => {
         if (volume >= 0 && volume <= 100) {
-            debouncedAdjustVolume(volume);
+            debouncedAdjustVolume(volume)
         }
     }, [volume])
 
     const debouncedAdjustVolume = useCallback(
         debounce((volume) => {
             spotifyApi.setVolume(volume)
-                .catch((error) => {});
+                .catch((error) => {})
         }, 200),
         []
     );

@@ -5,67 +5,67 @@ import {
     ReplyIcon,
     RewindIcon,
     SwitchHorizontalIcon
-} from "@heroicons/react/solid";
-import { useRecoilState } from "recoil";
-import { debounce } from 'lodash';
+} from "@heroicons/react/solid"
+import { useRecoilState } from "recoil"
+import { debounce } from 'lodash'
 
-import { isPlayingState, seekState } from "../../../atoms/trackAtom";
-import { useCallback, useEffect } from "react";
-import millisToMinutesAndSeconds from "../../../lib/time";
+import { isPlayingState, seekState } from "../../../atoms/trackAtom"
+import { useCallback, useEffect } from "react"
+import millisToMinutesAndSeconds from "../../../lib/time"
 
 export default function Center({ spotifyApi, track }) {
-    const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState);
-    const [ seek, setSeek ] = useRecoilState(seekState);
+    const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
+    const [ seek, setSeek ] = useRecoilState(seekState)
 
     const handlePlayPause = () => {
         spotifyApi.getMyCurrentPlaybackState()
             .then((data) => {
                 if (data.body.is_playing) {
-                    spotifyApi.pause();
-                    setIsPlaying(false);
+                    spotifyApi.pause()
+                    setIsPlaying(false)
                 } else {
                     spotifyApi.play();
-                    setIsPlaying(true);
+                    setIsPlaying(true)
                 }
             })
     }
 
     useEffect(() => {
-        let interval = null;
+        let interval = null
 
         if (isPlaying) {
             interval = setInterval(() => {
-                setSeek((seek) => seek + 1000);
+                setSeek((seek) => seek + 1000)
             }, 1000);
         } else {
-            clearInterval(interval);
+            clearInterval(interval)
         }
 
         return () => {
-            clearInterval(interval);
+            clearInterval(interval)
         };
     }, [isPlaying])
 
     useEffect(() => {
         if (seek > track?.duration_ms) {
-            spotifyApi.pause();
-            setIsPlaying(false);
-            setSeek(0);
+            spotifyApi.pause()
+            setIsPlaying(false)
+            setSeek(0)
         }
     }, [seek])
 
     function changeTrackSeek(time) {
-        debouncedChangeTrackSeek(time);
-        setSeek(time);
+        debouncedChangeTrackSeek(time)
+        setSeek(time)
     }
 
     const debouncedChangeTrackSeek = useCallback(
         debounce((seek) => {
             spotifyApi.seek(seek)
                 .then(function() {
-                    console.log('Seek to ' + seek);
+                    console.log('Seek to ' + seek)
                 }, function(err) {
-                    console.log('Something went wrong!', err);
+                    console.log('Something went wrong!', err)
                 });
         }, 100),
         []

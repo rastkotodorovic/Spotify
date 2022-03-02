@@ -1,28 +1,26 @@
-import { useRecoilValue } from "recoil";
 
-import { myPlaylists } from "../../atoms/playlistAtom";
-import {useEffect, useState} from "react";
-import useSpotify from "../../hooks/useSpotify";
-import {useRouter} from "next/router";
+import { useEffect, useState } from "react"
+
+import useSpotify from "../../hooks/useSpotify"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function MyArtists() {
-    const spotifyApi = useSpotify();
-    const [ artists, setArtists ] = useState(null);
+    const spotifyApi = useSpotify()
+    const [ artists, setArtists ] = useState(null)
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getFollowedArtists()
                 .then(function(data) {
-                    setArtists(data.body.artists);
+                    setArtists(data.body.artists)
                 }, function(err) {
-                    console.log('Something went wrong!', err);
+                    console.log('Something went wrong!', err)
                 });
         }
-    }, [spotifyApi.getAccessToken()]);
+    }, [spotifyApi.getAccessToken()])
 
     if (artists?.total === 0) {
         return (

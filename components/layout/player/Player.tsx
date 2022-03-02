@@ -1,34 +1,34 @@
-import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { useSession } from "next-auth/react";
+import { useEffect } from "react"
+import { useRecoilState } from "recoil"
+import { useSession } from "next-auth/react"
 
-import LeftSide from './LeftSide';
-import RightSide from "./RightSide";
-import Center from "./Center";
-import { isPlayingState, trackIdState } from "../../../atoms/trackAtom";
-import useSpotify from "../../../hooks/useSpotify";
-import useTrack from "../../../hooks/useTrack";
+import LeftSide from './LeftSide'
+import RightSide from "./RightSide"
+import Center from "./Center"
+import { isPlayingState, trackIdState } from "../../../atoms/trackAtom"
+import useSpotify from "../../../hooks/useSpotify"
+import useTrack from "../../../hooks/useTrack"
 
 export default function Player() {
-    const { data: session } = useSession();
-    const spotifyApi = useSpotify();
-    const [ trackId, setTrackId ] = useRecoilState(trackIdState);
-    const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState);
-    const track = useTrack();
+    const { data: session } = useSession()
+    const spotifyApi = useSpotify()
+    const [ trackId, setTrackId ] = useRecoilState(trackIdState)
+    const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
+    const track = useTrack()
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && ! trackId) {
-            getCurrentTrack();
+            getCurrentTrack()
         }
-    }, [trackId, spotifyApi, session]);
+    }, [trackId, spotifyApi, session])
 
     const getCurrentTrack = () => {
         if (! track) {
             spotifyApi.getMyCurrentPlayingTrack()
-                .then((data) => setTrackId(data.body?.item?.id));
+                .then((data) => setTrackId(data.body?.item?.id))
 
             spotifyApi.getMyCurrentPlaybackState()
-                .then((data) => setIsPlaying(data.body?.is_playing));
+                .then((data) => setIsPlaying(data.body?.is_playing))
         }
     };
 

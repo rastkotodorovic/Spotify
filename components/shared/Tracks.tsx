@@ -1,7 +1,4 @@
-import { useRecoilValue } from "recoil";
-
-import { playlistState } from "../../atoms/playlistAtom";
-import Track from "./Track";
+import Track from "./Track"
 
 export default function Tracks({ tracks }) {
     return (

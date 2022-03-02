@@ -1,9 +1,9 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline"
+import { useRouter } from "next/router"
 import Link from 'next/link'
 
 export default function Header({ children }) {
-    const router = useRouter();
+    const router = useRouter()
 
     return (
         <div className="lg:pl-64 flex flex-col">

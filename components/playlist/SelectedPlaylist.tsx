@@ -1,29 +1,27 @@
-import {useEffect, useState} from "react";
-import { useRecoilState } from "recoil";
-import { useRouter } from "next/router";
+import {useEffect, useState} from "react"
+import { useRouter } from "next/router"
 
-import { playlistState } from "../../atoms/playlistAtom";
-import Tracks from "../shared/Tracks";
-import useSpotify from "../../hooks/useSpotify";
+import Tracks from "../shared/Tracks"
+import useSpotify from "../../hooks/useSpotify"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function SelectedPlaylist() {
-    const spotifyApi = useSpotify();
+    const spotifyApi = useSpotify()
     const router = useRouter()
     const { playlistId } = router.query
-    const [ playlist, setPlaylist ] = useState(null);
+    const [ playlist, setPlaylist ] = useState(null)
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && playlistId) {
             spotifyApi.getPlaylist(playlistId)
                 .then((data) => {
-                    setPlaylist(data.body);
+                    setPlaylist(data.body)
                 });
         }
-    }, [spotifyApi.getAccessToken(), playlistId]);
+    }, [spotifyApi.getAccessToken(), playlistId])
 
     return (
         <>

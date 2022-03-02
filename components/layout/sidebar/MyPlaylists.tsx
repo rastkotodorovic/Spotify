@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
-import useSpotify from "../../../hooks/useSpotify";
-import { myPlaylists } from "../../../atoms/playlistAtom";
-import {useRecoilState} from "recoil";
+import useSpotify from "../../../hooks/useSpotify"
+import { myPlaylists } from "../../../atoms/playlistAtom"
+import {useRecoilState} from "recoil"
 
 function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ');
+    return classes.filter(Boolean).join(' ')
 }
 
 export default function MyPlaylists({ router, session }) {
-    const [ playlists, setPlaylists ] = useRecoilState(myPlaylists);
-    const spotifyApi = useSpotify();
+    const [ playlists, setPlaylists ] = useRecoilState(myPlaylists)
+    const spotifyApi = useSpotify()
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getUserPlaylists()
                 .then((data) => {
-                    setPlaylists(data.body.items);
+                    setPlaylists(data.body.items)
                 });
         }
-    }, [session, spotifyApi]);
+    }, [session, spotifyApi])
 
     return (
         <div className="mt-8">

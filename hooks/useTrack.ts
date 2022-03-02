@@ -1,13 +1,12 @@
-import {useEffect, useState} from "react";
-import {useSession} from "next-auth/react";
-import useSpotify from "./useSpotify";
-import {useRecoilState} from "recoil";
-import {trackIdState} from "../atoms/trackAtom";
+import {useEffect, useState} from "react"
+import useSpotify from "./useSpotify"
+import {useRecoilState} from "recoil"
+import {trackIdState} from "../atoms/trackAtom"
 
 export default function useTrack() {
-    const [ trackId, setTrackId ] = useRecoilState(trackIdState);
-    const spotifyApi = useSpotify();
-    const [ track, setTrack ] = useState(null);
+    const [ trackId, setTrackId ] = useRecoilState(trackIdState)
+    const spotifyApi = useSpotify()
+    const [ track, setTrack ] = useState(null)
 
     useEffect(() => {
         const getSong = async () => {
@@ -19,14 +18,14 @@ export default function useTrack() {
                             Authorization: `Bearer ${spotifyApi.getAccessToken()}`,
                         }
                     }
-                ).then((res) => res.json());
+                ).then((res) => res.json())
 
-                setTrack(trackInfo);
+                setTrack(trackInfo)
             }
         }
 
-        getSong();
+        getSong()
     }, [trackId])
 
-    return track;
+    return track
 }
