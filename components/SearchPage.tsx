@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 
 import useSpotify from "../hooks/useSpotify";
+import Cards from "./shared/Cards";
+import Tracks from "./shared/Tracks";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -16,9 +18,9 @@ export default function SearchPage() {
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
-            spotifyApi.searchPlaylists(router.query.query)
+            spotifyApi.searchPlaylists(router.query.query, {limit: 5})
                 .then(function(data) {
-                   setPlaylists(data.body);
+                   setPlaylists(data.body.playlists.items);
                 }, function(err) {
                     console.error(err);
                 });
@@ -32,7 +34,7 @@ export default function SearchPage() {
 
             spotifyApi.searchTracks(router.query.query)
                 .then(function(data) {
-                    setTracks(data.body);
+                    setTracks(data.body.tracks);
                 }, function(err) {
                     console.error(err);
                 });
@@ -41,8 +43,9 @@ export default function SearchPage() {
 
 
     return (
-        <div>
-            asdsad
+        <div className="px-4 mt-6 sm:px-6 lg:px-8">
+            <Cards playlists={playlists} title="Playlists" />
+            <Tracks tracks={tracks} />
         </div>
     )
 }

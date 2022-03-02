@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import {isPlayingState, seekState, trackIdState} from "../../atoms/trackAtom";
+import { isPlayingState, seekState, trackIdState } from "../../atoms/trackAtom";
 import useSpotify from "../../hooks/useSpotify";
 import millisToMinutesAndSeconds from "../../lib/time";
 
@@ -10,17 +10,17 @@ export default function Track({ track, number }) {
     const [ seek, setSeek ] = useRecoilState(seekState);
 
     const playSong = () => {
-        setTrackId(track.track.id);
+        setTrackId(track.id);
         setSeek(0);
         setIsPlaying(true);
         spotifyApi.play({
-           uris: [ track.track.uri ],
+           uris: [ track.uri ],
         }).catch((err) => console.log(err));
     }
 
     return (
         <tr
-            className={`hover:bg-gray-100 cursor-pointer ${trackId === track.track.id ? 'bg-gray-100' : ''}`}
+            className={`hover:bg-gray-100 cursor-pointer ${trackId === track.id ? 'bg-gray-100' : ''}`}
             onClick={playSong}
         >
             <td className="px-6 py-4 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
@@ -32,8 +32,8 @@ export default function Track({ track, number }) {
                     />
                     <a className="truncate hover:text-gray-700 cursor-pointer">
                       <span>
-                          {track.track.name}
-                          <span className="text-gray-400 font-normal"> by {track.track.artists[0].name}</span>
+                          {track.name}
+                          <span className="text-gray-400 font-normal"> by {track.artists[0].name}</span>
                       </span>
                     </a>
                 </div>
@@ -41,17 +41,17 @@ export default function Track({ track, number }) {
             <td className="px-6 py-3 text-sm text-gray-500 font-medium">
                 <div className="flex items-center space-x-2">
                     <div className="flex flex-shrink-0 -space-x-1">
-                        {track.track.album.name}
+                        {track.album.name}
                     </div>
                 </div>
             </td>
             <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(track.track.added_at)}
+                {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(track.added_at)}
             </td>
             <td className="px-6 py-3 whitespace-nowrap text-right text-sm font-medium">
                 <div className="flex items-center space-x-2">
                     <div className="flex flex-shrink-0 -space-x-1">
-                        {millisToMinutesAndSeconds(track.track.duration_ms)}
+                        {millisToMinutesAndSeconds(track.duration_ms)}
                     </div>
                 </div>
             </td>

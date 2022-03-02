@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 
 import useSpotify from "../hooks/useSpotify";
-import {useRecoilValue} from "recoil";
-import {myPlaylists} from "../atoms/playlistAtom";
+import { useRecoilValue } from "recoil";
+import { myPlaylists } from "../atoms/playlistAtom";
 import Card from "./shared/Card";
 import Cards from "./shared/Cards";
 
