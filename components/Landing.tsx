@@ -28,9 +28,9 @@ export default function Landing() {
 
     return (
         <div className="px-4 mt-6 sm:px-6 lg:px-8">
-            <Cards playlists={featuredPlaylists} title="Featured playlists" />
+            <Cards playlists={featuredPlaylists} title="Featured playlists" href="playlist" />
 
-            <Cards playlists={playlists} title="My playlists" />
+            <Cards playlists={playlists} title="My playlists" href="playlist" />
         </div>
     )
 }

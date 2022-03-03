@@ -11,7 +11,7 @@ export default function useSpotify() {
                 signIn()
             }
 
-            spotify.setAccessToken(session.user.accessToken)
+            spotify.setAccessToken(session?.user?.accessToken)
         }
     }, [session])
 

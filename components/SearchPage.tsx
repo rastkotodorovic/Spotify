@@ -44,7 +44,7 @@ export default function SearchPage() {
 
     return (
         <div className="px-4 mt-6 sm:px-6 lg:px-8">
-            <Cards playlists={playlists} title="Playlists" />
+            <Cards playlists={playlists} title="Playlists" href="playlist" />
             <Tracks tracks={tracks} />
         </div>
     )

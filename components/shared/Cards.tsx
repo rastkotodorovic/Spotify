@@ -1,6 +1,6 @@
 import Card from "./Card"
 
-export default function Cards({ playlists, title }) {
+export default function Cards({ playlists, title, href }) {
     return (
         <>
             <h2 className="text-gray-600 text-md font-medium tracking-wide mx-12">{title}</h2>
@@ -8,8 +8,8 @@ export default function Cards({ playlists, title }) {
                 role="list"
                 className="grid grid-cols-1 gap-x-5 gap-y-16 sm:grid-cols-2 xl:grid-cols-5 mt-5 mb-16 mx-12"
             >
-                {playlists.map((playlist) => (
-                    <Card key={playlist.id} playlist={playlist} />
+                {playlists?.map((playlist) => (
+                    <Card key={playlist.id} playlist={playlist} href={href} />
                 ))}
             </ul>
         </>

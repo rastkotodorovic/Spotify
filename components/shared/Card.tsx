@@ -1,11 +1,11 @@
 import { useRouter } from "next/router"
 
-export default function Card({ playlist }) {
+export default function Card({ playlist, href }) {
     const router = useRouter()
 
     return (
         <div className="bg-gray-100 w-64 shadow-lg rounded p-2">
-            <div className="group relative" onClick={() => router.push(`/playlist/${playlist?.id}`)}>
+            <div className="group relative" onClick={() => router.push(`/${href}/${playlist?.id}`)}>
                 <img alt="Placeholder" className="block h-48 w-full rounded"  src={playlist?.images[0]?.url} />
                 <div className="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
 
