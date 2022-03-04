@@ -4,9 +4,9 @@ export default function Card({ playlist, href }) {
     const router = useRouter()
 
     return (
-        <div className="bg-gray-100 w-64 shadow-lg rounded p-2">
+        <div className="bg-gray-100 w-60 shadow-md rounded p-2">
             <div className="group relative" onClick={() => router.push(`/${href}/${playlist?.id}`)}>
-                <img alt="Placeholder" className="block h-48 w-full rounded"  src={playlist?.images[0]?.url} />
+                <img alt="Placeholder" className="block h-44 w-full rounded"  src={playlist?.images[0]?.url} />
                 <div className="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
 
                     <button className="hover:scale-110 text-white outline-none  opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
@@ -29,8 +29,8 @@ export default function Card({ playlist, href }) {
             </div>
             <div className="p-2">
                 <h3 className="text-gray-600 py-1 text-base justify-center">{playlist?.name}</h3>
-                <p className="text-gray-400 text-sm">{playlist?.description}</p>
-                <p className="text-gray-400 text-sm mt-4">By @{playlist?.owner?.display_name}</p>
+                <p className="text-gray-400 text-sm">{playlist?.description.substring(0, 45)}</p>
+                <p className="text-gray-400 text-sm mt-1">By @{playlist?.owner?.display_name}</p>
             </div>
         </div>
     )
