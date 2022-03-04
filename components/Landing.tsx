@@ -27,7 +27,7 @@ export default function Landing() {
     }, [session, spotifyApi]);
 
     return (
-        <div className="px-4 mt-6 sm:px-6 lg:px-8">
+        <div className="px-4 mt-6 mb-40 sm:px-6 lg:px-8">
             <Cards playlists={featuredPlaylists} title="Featured playlists" href="playlist" />
 
             <Cards playlists={playlists} title="My playlists" href="playlist" />

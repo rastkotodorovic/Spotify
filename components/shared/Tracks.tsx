@@ -20,7 +20,7 @@ export default function Tracks({ tracks }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
-                    {tracks?.items?.map((track, index) => (
+                    {tracks?.map((track, index) => (
                         <Track
                             key={track.track ? track.track.id : track.id}
                             track={track.track ? track.track : track}

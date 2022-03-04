@@ -1,9 +1,10 @@
 import type { NextPage } from 'next'
+import SelectedArtist from '../../components/SelectedArtist';
 
 const Artist: NextPage = () => {
     return (
         <>
-            hi
+            <SelectedArtist />
         </>
     )
 }

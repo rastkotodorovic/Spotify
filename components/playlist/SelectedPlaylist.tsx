@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 import Tracks from "../shared/Tracks"
@@ -51,7 +51,7 @@ export default function SelectedPlaylist() {
                 </ul>
             </div>
 
-            <Tracks tracks={playlist?.tracks} />
+            <Tracks tracks={playlist?.tracks.items} />
         </>
     )
 }

@@ -42,7 +42,7 @@ export default function Track({ track, number }) {
             <td className="px-6 py-3 text-sm text-gray-500 font-medium">
                 <div className="flex items-center space-x-2">
                     <div className="flex flex-shrink-0 -space-x-1">
-                        {track.album.name}
+                        {track?.album?.name?.substring(0, 15)}
                     </div>
                 </div>
             </td>

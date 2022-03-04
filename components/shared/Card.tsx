@@ -29,7 +29,7 @@ export default function Card({ playlist, href }) {
             </div>
             <div className="p-2">
                 <h3 className="text-gray-600 py-1 text-base justify-center">{playlist?.name}</h3>
-                <p className="text-gray-400 text-sm">{playlist?.description.substring(0, 45)}</p>
+                <p className="text-gray-400 text-sm">{playlist?.description?.substring(0, 45)}</p>
                 <p className="text-gray-400 text-sm mt-1">By @{playlist?.owner?.display_name}</p>
             </div>
         </div>
