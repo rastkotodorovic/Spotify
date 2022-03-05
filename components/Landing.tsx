@@ -23,7 +23,6 @@ export default function Landing() {
             spotifyApi.getFeaturedPlaylists()
                 .then((data) => {
                     setFeaturedPlaylists(data.body.playlists.items)
-                    console.log(data.body.playlists.items)
                 });
 
             spotifyApi.getMyTopArtists()
