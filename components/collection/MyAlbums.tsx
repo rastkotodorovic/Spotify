@@ -22,7 +22,7 @@ export default function MyAlbums() {
     }, [spotifyApi.getAccessToken()])
 
     return (
-        <div className="px-4 mt-6 sm:px-6 lg:px-8">
+        <div className="px-4 mt-6 mx-8 sm:px-6 lg:px-8">
             <ul
                 role="list"
                 className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 xl:grid-cols-3 mt-3 mb-20"
