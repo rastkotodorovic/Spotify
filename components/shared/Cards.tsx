@@ -11,7 +11,7 @@ export default function Cards({ playlists, title, href }) {
             let ids = [];
 
             playlists.map((playlist) => {
-                ids.push(playlist.id)
+                ids.push(playlist.album ? playlist.album.id : playlist.id)
             });
             switch (href) {
                 case 'artists':
@@ -21,6 +21,14 @@ export default function Cards({ playlists, title, href }) {
                         }, function(err) {
                             console.log('Something went wrong!', err);
                         })
+                    break;
+                case 'albums':
+                    spotifyApi.containsMySavedAlbums(ids)
+                        .then(function(data) {
+                            setIsFollowed(data.body)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        });
                     break;
             }
         }
@@ -35,8 +43,8 @@ export default function Cards({ playlists, title, href }) {
             >
                 {playlists?.map((playlist, index) => (
                     <Card
-                        key={playlist.id}
-                        playlist={playlist}
+                        key={playlist.album ? playlist.album.id : playlist.id}
+                        playlist={playlist.album ? playlist.album : playlist}
                         href={href}
                         isFollowed={isFollowed}
                         index={index}
