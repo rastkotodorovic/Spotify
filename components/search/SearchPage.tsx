@@ -23,14 +23,14 @@ export default function SearchPage() {
 
             spotifyApi.searchArtists(router.query.query)
                 .then(function(data) {
-                    setArtists(data.body)
+                    setArtists(data.body.artists.items)
                 }, function(err) {
                     console.error(err)
                 });
 
-            spotifyApi.searchTracks(router.query.query)
+            spotifyApi.searchTracks(router.query.query, { limit: 10 })
                 .then(function(data) {
-                    setTracks(data.body.tracks)
+                    setTracks(data.body.tracks.items)
                 }, function(err) {
                     console.error(err)
                 });
@@ -41,7 +41,12 @@ export default function SearchPage() {
     return (
         <div className="px-4 mt-6 sm:px-6 lg:px-8">
             <Cards playlists={playlists} title="Playlists" href="playlist" />
-            <Tracks tracks={tracks} />
+
+            <Cards playlists={artists} title="Artists" href="artists" />
+
+            <div className="mb-36">
+                <Tracks tracks={tracks} />
+            </div>
         </div>
     )
 }
