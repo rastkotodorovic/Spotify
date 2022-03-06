@@ -3,10 +3,6 @@ import { useEffect, useState } from "react"
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards";
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function MyAlbums() {
     const spotifyApi = useSpotify()
     const [ albums, setAlbums ] = useState([])

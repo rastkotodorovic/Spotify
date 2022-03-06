@@ -1,14 +1,11 @@
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
+
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards"
 import CurrentCard from "../shared/CurrentCard"
 import Tracks from "../shared/Tracks"
-
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function SelectedUser() {
   const spotifyApi = useSpotify()
@@ -35,23 +32,23 @@ export default function SelectedUser() {
         .then(function(data) {
           setPlaylists(data.body.items);
         },function(err) {
-          console.log('Something went wrong!', err);
-        });
+          console.log('Something went wrong!', err)
+        })
 
         if (user.id === session.user.username) {
           spotifyApi.getMyTopTracks({ limit: 10 })
               .then(function(data) {
                 setTopTracks(data.body.items)
               }, function(err) {
-                console.log('Something went wrong!', err);
-              });
+                console.log('Something went wrong!', err)
+              })
 
             spotifyApi.getMyTopArtists()
                 .then(function(data) {
                   setTopArtists(data.body.items)
                 }, function(err) {
-                  console.log('Something went wrong!', err);
-                });
+                  console.log('Something went wrong!', err)
+                })
         }
     }
   }, [user])

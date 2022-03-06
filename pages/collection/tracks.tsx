@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import Liked from "../../components/collection/Liked";
+
+import Liked from "../../components/collection/Liked"
 
 const Tracks: NextPage = () => {
     return (

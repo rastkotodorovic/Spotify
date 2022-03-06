@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
+
 import Track from "./Track"
 import {ClockIcon} from "@heroicons/react/outline";
-import { useEffect, useState } from "react";
 import useSpotify from "../../hooks/useSpotify";
 
 export default function Tracks({ tracks }) {

@@ -29,8 +29,8 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
 
                     setIsFollowed(newArr)
                 }, function (err) {
-                    console.log('Something went wrong!', err);
-                });
+                    console.log('Something went wrong!', err)
+                })
         } else {
             spotifyApi.addToMySavedTracks([track.id])
                 .then(function (data) {
@@ -39,8 +39,8 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
 
                     setIsFollowed(newArr)
                 }, function (err) {
-                    console.log('Something went wrong!', err);
-                });
+                    console.log('Something went wrong!', err)
+                })
         }
     }
 

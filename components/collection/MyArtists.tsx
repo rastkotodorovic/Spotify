@@ -4,10 +4,6 @@ import { useEffect, useState } from "react"
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards"
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function MyArtists() {
     const spotifyApi = useSpotify()
     const [ artists, setArtists ] = useState(null)
@@ -19,7 +15,7 @@ export default function MyArtists() {
                     setArtists(data.body.artists.items)
                 }, function(err) {
                     console.log('Something went wrong!', err)
-                });
+                })
         }
     }, [spotifyApi.getAccessToken()])
 

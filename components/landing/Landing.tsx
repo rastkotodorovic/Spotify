@@ -2,21 +2,14 @@ import { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 
 import useSpotify from "../../hooks/useSpotify"
-import { useRecoilValue } from "recoil"
-import { myPlaylists } from "../../atoms/playlistAtom"
 import Cards from "../shared/Cards"
 import Tracks from "../shared/Tracks";
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function Landing() {
     const { data: session } = useSession()
     const spotifyApi = useSpotify()
     const [ featuredPlaylists, setFeaturedPlaylists ] = useState([])
     const [ topArtists, setTopArtists ] = useState([])
-    const [ topTracks, setTopTracks ] = useState([])
     const [ newAlbums, setNewAlbums ] = useState([])
     const [ recentlyPlayed, setRecentlyPlayed ] = useState([])
 
@@ -38,7 +31,7 @@ export default function Landing() {
                     .then(function(data) {
                         setRecentlyPlayed(data.body.items)
                     }, function(err) {
-                        console.log('Something went wrong!', err);
+                        console.log('Something went wrong!', err)
                     });
 
             spotifyApi.getMyTopArtists()
@@ -48,7 +41,7 @@ export default function Landing() {
                     console.log('Something went wrong!', err)
                 });
         }
-    }, [session, spotifyApi]);
+    }, [session, spotifyApi])
 
     return (
         <div className="px-4 mt-6 mb-40 mx-8 sm:px-6 lg:px-8">

@@ -3,10 +3,6 @@ import { useRecoilValue } from "recoil"
 import { myPlaylists } from "../../atoms/playlistAtom"
 import Cards from "../shared/Cards"
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function MyPlaylists() {
     const playlists = useRecoilValue(myPlaylists)
 

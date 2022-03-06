@@ -1,8 +1,6 @@
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react";
 
 import useSpotify from "../../hooks/useSpotify";
-import {useSession} from "next-auth/react";
 
 export default function Card({ playlist, href, isFollowed, index, setIsFollowed }) {
     const router = useRouter()
@@ -33,7 +31,7 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             console.log('Something went wrong!', err);
                         });
                 }
-                break;
+                break
             case 'albums':
                 if (isFollowed[index]) {
                     spotifyApi.removeFromMySavedAlbums([playlist.id])
@@ -56,7 +54,7 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             console.log('Something went wrong!', err);
                         });
                 }
-                break;
+                break
         }
     }
 

@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react"
+
 import Card from "./Card"
-import {useEffect, useState} from "react";
-import useSpotify from "../../hooks/useSpotify";
+import useSpotify from "../../hooks/useSpotify"
 
 export default function Cards({ playlists, title, href }) {
     const spotifyApi = useSpotify()
@@ -19,7 +20,7 @@ export default function Cards({ playlists, title, href }) {
                         .then(function(data) {
                             setIsFollowed(data.body)
                         }, function(err) {
-                            console.log('Something went wrong!', err);
+                            console.log('Something went wrong!', err)
                         })
                     break;
                 case 'albums':

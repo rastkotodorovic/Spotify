@@ -18,7 +18,7 @@ export default function Liked() {
                     setTracks(data.body.items)
                 }, function(err) {
                     console.log('Something went wrong!', err)
-                });
+                })
         }
     }, [spotifyApi.getAccessToken()])
 
