@@ -15,7 +15,7 @@ export default function Tracks({ tracks }) {
                 ids.push(track.track ? track.track.id : track.id)
             });
 
-            spotifyApi.containsMySavedTracks(ids)
+            spotifyApi.containsMySavedTracks(ids.slice(0, 50))
                 .then(function(data) {
                     setIsFollowed(data.body)
                 }, function(err) {
