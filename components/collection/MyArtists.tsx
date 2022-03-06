@@ -13,7 +13,8 @@ export default function MyArtists() {
             spotifyApi.getFollowedArtists()
                 .then(function(data) {
                     setArtists(data.body.artists.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                     console.log('Something went wrong!', err)
                 })
         }

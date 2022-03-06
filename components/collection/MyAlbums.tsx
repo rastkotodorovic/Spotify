@@ -12,7 +12,8 @@ export default function MyAlbums() {
             spotifyApi.getMySavedAlbums()
                 .then(function(data) {
                     setAlbums(data.body.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                     console.log('Something went wrong!', err)
                 });
         }

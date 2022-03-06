@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react"
 
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards"
-import Tracks from "../shared/Tracks";
+import Tracks from "../shared/Tracks"
 
 export default function Landing() {
     const { data: session } = useSession()
@@ -18,28 +18,31 @@ export default function Landing() {
             spotifyApi.getFeaturedPlaylists()
                 .then((data) => {
                     setFeaturedPlaylists(data.body.playlists.items)
-                });
+                })
 
             spotifyApi.getNewReleases({ limit : 10 })
                 .then(function(data) {
                     setNewAlbums(data.body.albums.items)
-                  }, function(err) {
+                  })
+                .catch(function(err) {
                      console.log("Something went wrong!", err)
-                  });
+                  })
 
             spotifyApi.getMyRecentlyPlayedTracks({limit : 10})
                     .then(function(data) {
                         setRecentlyPlayed(data.body.items)
-                    }, function(err) {
+                    })
+                    .catch(function(err) {
                         console.log('Something went wrong!', err)
-                    });
+                    })
 
             spotifyApi.getMyTopArtists()
                 .then(function(data) {
                     setTopArtists(data.body.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                     console.log('Something went wrong!', err)
-                });
+                })
         }
     }, [session, spotifyApi])
 

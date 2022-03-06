@@ -28,7 +28,8 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
                     newArr[number] = false
 
                     setIsFollowed(newArr)
-                }, function (err) {
+                })
+                .catch(function (err) {
                     console.log('Something went wrong!', err)
                 })
         } else {
@@ -38,7 +39,8 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
                     newArr[number] = true
 
                     setIsFollowed(newArr)
-                }, function (err) {
+                })
+                .catch(function (err) {
                     console.log('Something went wrong!', err)
                 })
         }

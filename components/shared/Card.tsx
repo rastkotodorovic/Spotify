@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 
-import useSpotify from "../../hooks/useSpotify";
+import useSpotify from "../../hooks/useSpotify"
 
 export default function Card({ playlist, href, isFollowed, index, setIsFollowed }) {
     const router = useRouter()
@@ -17,9 +17,10 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             newArr[index] = false
 
                             setIsFollowed(newArr)
-                        }, function (err) {
-                            console.log('Something went wrong!', err);
-                        });
+                        })
+                        .catch(function (err) {
+                            console.log('Something went wrong!', err)
+                        })
                 } else {
                     spotifyApi.followArtists([playlist.id])
                         .then(function (data) {
@@ -27,9 +28,10 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             newArr[index] = true
 
                             setIsFollowed(newArr)
-                        }, function (err) {
-                            console.log('Something went wrong!', err);
-                        });
+                        })
+                        .catch(function (err) {
+                            console.log('Something went wrong!', err)
+                        })
                 }
                 break
             case 'albums':
@@ -40,9 +42,10 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             newArr[index] = false
 
                             setIsFollowed(newArr)
-                        }, function(err) {
+                        })
+                        .catch(function(err) {
                             console.log('Something went wrong!', err)
-                        });
+                        })
                 } else {
                     spotifyApi.addToMySavedAlbums([playlist.id])
                         .then(function(data) {
@@ -50,9 +53,10 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
                             newArr[index] = true
 
                             setIsFollowed(newArr)
-                        }, function(err) {
-                            console.log('Something went wrong!', err);
-                        });
+                        })
+                        .catch(function(err) {
+                            console.log('Something went wrong!', err)
+                        })
                 }
                 break
         }

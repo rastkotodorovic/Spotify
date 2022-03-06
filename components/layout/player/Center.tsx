@@ -1,3 +1,4 @@
+import { useCallback, useEffect } from "react"
 import {
     FastForwardIcon,
     PauseIcon,
@@ -10,7 +11,6 @@ import { useRecoilState } from "recoil"
 import { debounce } from 'lodash'
 
 import { isPlayingState, seekState } from "../../../atoms/trackAtom"
-import { useCallback, useEffect } from "react"
 import millisToMinutesAndSeconds from "../../../lib/time"
 
 export default function Center({ spotifyApi, track }) {
@@ -24,7 +24,7 @@ export default function Center({ spotifyApi, track }) {
                     spotifyApi.pause()
                     setIsPlaying(false)
                 } else {
-                    spotifyApi.play();
+                    spotifyApi.play()
                     setIsPlaying(true)
                 }
             })
@@ -36,14 +36,14 @@ export default function Center({ spotifyApi, track }) {
         if (isPlaying) {
             interval = setInterval(() => {
                 setSeek((seek) => seek + 1000)
-            }, 1000);
+            }, 1000)
         } else {
             clearInterval(interval)
         }
 
         return () => {
             clearInterval(interval)
-        };
+        }
     }, [isPlaying])
 
     useEffect(() => {
@@ -66,10 +66,10 @@ export default function Center({ spotifyApi, track }) {
                     console.log('Seek to ' + seek)
                 }, function(err) {
                     console.log('Something went wrong!', err)
-                });
+                })
         }, 100),
         []
-    );
+    )
 
     return (
         <>
@@ -113,5 +113,5 @@ export default function Center({ spotifyApi, track }) {
                 </div>
             </div>
         </>
-    );
+    )
 }

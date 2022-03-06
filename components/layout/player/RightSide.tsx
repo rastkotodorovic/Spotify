@@ -1,9 +1,9 @@
 import { VolumeOffIcon, VolumeUpIcon } from "@heroicons/react/solid"
 import { useCallback, useEffect, useState } from "react"
 import { debounce } from 'lodash'
-import { useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil"
 
-import { isPlayingState } from "../../../atoms/trackAtom";
+import { isPlayingState } from "../../../atoms/trackAtom"
 
 export default function RightSide({ spotifyApi }) {
     const [ volume, setVolume ] = useState(50)
@@ -21,7 +21,7 @@ export default function RightSide({ spotifyApi }) {
                 .catch((error) => {})
         }, 200),
         []
-    );
+    )
 
     return (
         <div className="flex items-center space-x-3 md:space-x-4 justify-end">
@@ -42,5 +42,5 @@ export default function RightSide({ spotifyApi }) {
                 onClick={() => setVolume(100)}
             />
         </div>
-    );
+    )
 }

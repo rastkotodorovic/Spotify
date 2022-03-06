@@ -3,7 +3,6 @@ import { useRouter } from "next/router"
 
 import Tracks from "../shared/Tracks"
 import useSpotify from "../../hooks/useSpotify"
-import { useSession } from "next-auth/react"
 import CurrentCard from "../shared/CurrentCard"
 
 export default function SelectedPlaylist() {
@@ -17,7 +16,7 @@ export default function SelectedPlaylist() {
             spotifyApi.getPlaylist(playlistId)
                 .then((data) => {
                     setPlaylist(data.body)
-                });
+                })
         }
     }, [spotifyApi.getAccessToken(), playlistId])
 

@@ -9,17 +9,18 @@ export default function Cards({ playlists, title, href }) {
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && playlists?.length) {
-            let ids = [];
+            let ids = []
             playlists.map((playlist) => {
                 ids.push(playlist.album ? playlist.album.id : playlist.id)
-            });
+            })
 
             switch (href) {
                 case 'artists':
                     spotifyApi.isFollowingArtists(ids)
                         .then(function(data) {
                             setIsFollowed(data.body)
-                        }, function(err) {
+                        })
+                        .catch(function(err) {
                             console.log('Something went wrong!', err)
                         })
                     break;
@@ -27,9 +28,10 @@ export default function Cards({ playlists, title, href }) {
                     spotifyApi.containsMySavedAlbums(ids)
                         .then(function(data) {
                             setIsFollowed(data.body)
-                        }, function(err) {
+                        })
+                        .catch(function(err) {
                             console.log('Something went wrong!', err)
-                        });
+                        })
                     break;
             }
         }

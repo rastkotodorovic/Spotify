@@ -22,7 +22,7 @@ export default function SelectedUser() {
           spotifyApi.getUser(userId)
               .then((data) => {
                   setUser(data.body)
-              });
+              })
       }
   }, [spotifyApi.getAccessToken(), userId])
 
@@ -30,8 +30,9 @@ export default function SelectedUser() {
     if (user) {
       spotifyApi.getUserPlaylists(user.id)
         .then(function(data) {
-          setPlaylists(data.body.items);
-        },function(err) {
+          setPlaylists(data.body.items)
+        })
+        .catch(function(err) {
           console.log('Something went wrong!', err)
         })
 
@@ -39,14 +40,16 @@ export default function SelectedUser() {
           spotifyApi.getMyTopTracks({ limit: 10 })
               .then(function(data) {
                 setTopTracks(data.body.items)
-              }, function(err) {
+              })
+              .catch(function(err) {
                 console.log('Something went wrong!', err)
               })
 
             spotifyApi.getMyTopArtists()
                 .then(function(data) {
                   setTopArtists(data.body.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                   console.log('Something went wrong!', err)
                 })
         }

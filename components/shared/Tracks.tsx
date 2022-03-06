@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 import Track from "./Track"
-import {ClockIcon} from "@heroicons/react/outline";
-import useSpotify from "../../hooks/useSpotify";
+import useSpotify from "../../hooks/useSpotify"
 
 export default function Tracks({ tracks }) {
     const spotifyApi = useSpotify()
@@ -10,18 +9,18 @@ export default function Tracks({ tracks }) {
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && tracks?.length) {
-            let ids = [];
+            let ids = []
             tracks.map((track) => {
                 ids.push(track.track ? track.track.id : track.id)
-            });
+            })
 
             spotifyApi.containsMySavedTracks(ids.slice(0, 50))
                 .then(function(data) {
                     setIsFollowed(data.body)
-                }, function(err) {
+                })
+                .catch(function(err) {
                     console.log('Something went wrong!', err)
                 })
-
         }
     }, [spotifyApi.getAccessToken(), tracks])
 

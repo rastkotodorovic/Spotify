@@ -20,16 +20,18 @@ export default function SelectedArtist() {
           spotifyApi.getArtist(artistId)
               .then(function(data) {
                 setArtist(data.body)
-              }, function(err) {
+              })
+              .catch(function(err) {
                 console.error(err)
               })
 
           spotifyApi.getArtistTopTracks(artistId, 'GB')
               .then(function(data) {
-                    setTracks(data.body.tracks)
-                  }, function(err) {
-                    console.log('Something went wrong!', err)
-                })
+                  setTracks(data.body.tracks)
+              })
+              .catch(function(err) {
+                  console.log('Something went wrong!', err)
+              })
 
             spotifyApi.getArtistRelatedArtists(artistId)
                 .then(function(data) {
@@ -39,7 +41,8 @@ export default function SelectedArtist() {
             spotifyApi.getArtistAlbums(artistId, { limit: 12 })
                 .then(function(data) {
                   setAlbums(data.body.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                   console.error(err)
                 })
         }

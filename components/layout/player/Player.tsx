@@ -30,7 +30,7 @@ export default function Player() {
             spotifyApi.getMyCurrentPlaybackState()
                 .then((data) => setIsPlaying(data.body?.is_playing))
         }
-    };
+    }
 
     return (
         <div className="h-24 bg-gray-100 border-t border-gray-200 text-black grid grid-cols-3 text-xs md:text-base px-2 md:px-8">

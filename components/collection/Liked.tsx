@@ -16,7 +16,8 @@ export default function Liked() {
             spotifyApi.getMySavedTracks()
                 .then(function(data) {
                     setTracks(data.body.items)
-                }, function(err) {
+                })
+                .catch(function(err) {
                     console.log('Something went wrong!', err)
                 })
         }

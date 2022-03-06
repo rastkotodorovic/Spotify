@@ -19,23 +19,23 @@ export default function SearchPage() {
                    setPlaylists(data.body.playlists.items)
                 }, function(err) {
                     console.error(err)
-                });
+                })
 
             spotifyApi.searchArtists(router.query.query)
                 .then(function(data) {
                     setArtists(data.body.artists.items)
                 }, function(err) {
                     console.error(err)
-                });
+                })
 
             spotifyApi.searchTracks(router.query.query, { limit: 10 })
                 .then(function(data) {
                     setTracks(data.body.tracks.items)
                 }, function(err) {
                     console.error(err)
-                });
+                })
         }
-    }, [spotifyApi.getAccessToken(), router.query.query]);
+    }, [spotifyApi.getAccessToken(), router.query.query])
 
 
     return (

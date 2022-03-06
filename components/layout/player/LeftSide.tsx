@@ -11,5 +11,5 @@ export default function LeftSide({ track }) {
                 <p className="text-sm text-gray-500">{ track?.artists?.[0]?.name }</p>
             </div>
         </div>
-    );
+    )
 }

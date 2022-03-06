@@ -1,9 +1,9 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 
-import useSpotify from "../../hooks/useSpotify";
-import CurrentCard from "../shared/CurrentCard";
-import Tracks from "../shared/Tracks";
+import useSpotify from "../../hooks/useSpotify"
+import CurrentCard from "../shared/CurrentCard"
+import Tracks from "../shared/Tracks"
 
 export default function SelectedAlbum() {
     const spotifyApi = useSpotify()
@@ -18,7 +18,8 @@ export default function SelectedAlbum() {
                 .then(function (data) {
                     setAlbum(data.body)
                     setTracks(data.body.tracks.items)
-                }, function (err) {
+                })
+                .catch(function (err) {
                     console.error(err)
                 })
         }

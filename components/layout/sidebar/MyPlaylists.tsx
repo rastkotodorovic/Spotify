@@ -17,7 +17,7 @@ export default function MyPlaylists({ router, session }) {
             spotifyApi.getUserPlaylists()
                 .then((data) => {
                     setPlaylists(data.body.items)
-                });
+                })
         }
     }, [session, spotifyApi])
 
