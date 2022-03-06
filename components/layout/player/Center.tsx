@@ -108,7 +108,7 @@ export default function Center({ spotifyApi, track }) {
                         />
                     </div>
                     <div className="flex-none w-14 text-center text-gray-400">
-                        {millisToMinutesAndSeconds(track?.duration_ms)}
+                        {isNaN(track?.duration_ms) ? '0:00' : millisToMinutesAndSeconds(track?.duration_ms)}
                     </div>
                 </div>
             </div>

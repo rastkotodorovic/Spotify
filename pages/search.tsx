@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 
-import Landing from "../components/Landing";
-import SearchPage from "../components/SearchPage";
+import Landing from "../components/landing/Landing";
+import SearchPage from "../components/search/SearchPage";
 
 const Search: NextPage = () => {
     return (

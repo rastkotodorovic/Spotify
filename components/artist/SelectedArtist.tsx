@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
 
-import useSpotify from "../hooks/useSpotify"
-import Cards from "./shared/Cards"
-import Tracks from "./shared/Tracks"
+import useSpotify from "../../hooks/useSpotify"
+import Cards from "../shared/Cards"
+import Tracks from "../shared/Tracks"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
