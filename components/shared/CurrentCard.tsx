@@ -27,6 +27,13 @@ export default function CurrentCard({ type, playlist }) {
                 }, function(err) {
                     console.log('Something went wrong!', err)
                 });
+          } else if (type === 'user') {
+            spotifyApi.isFollowingUsers([playlist.id])
+                .then(function(data) {
+                    setIsFollowing(data.body[0])
+                }, function(err) {
+                    console.log('Something went wrong!', err)
+                });
           }
       }
     }, [spotifyApi.getAccessToken(), playlist])
@@ -64,6 +71,22 @@ export default function CurrentCard({ type, playlist }) {
                         console.log('Something went wrong!', err)
                     })
             }
+        } else if (type === 'user') {
+            if (isFollowing) {
+                spotifyApi.unfollowUsers([playlist.id])
+                    .then(function(data) {
+                        setIsFollowing(false)
+                    }, function(err) {
+                        console.log('Something went wrong!', err)
+                    })
+              } else {
+                  spotifyApi.followUsers([playlist.id])
+                      .then(function(data) {
+                          setIsFollowing(true)
+                      }, function(err) {
+                          console.log('Something went wrong!', err)
+                      })
+              }
         }
     }
 
@@ -78,13 +101,13 @@ export default function CurrentCard({ type, playlist }) {
                           'flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
                       )}
                   >
-                      <img src={playlist.images ? playlist?.images[0]?.url : ''} alt="" className="rounded-l-md" />
+                      <img src={playlist?.images ? playlist?.images[0]?.url : ''} alt="" className="rounded-l-md" />
                   </div>
                   <div
                       className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate flex justify-between">
                       <div className="flex-1 px-4 py-2 text-sm truncate">
                           <a href="#" className="text-gray-900 font-medium hover:text-gray-600">
-                              {playlist?.name}
+                              {playlist?.display_name ? playlist?.display_name : playlist?.name}
                           </a>
                           <p className="text-gray-500">{playlist?.followers?.total} followers</p>
                       </div>

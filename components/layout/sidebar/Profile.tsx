@@ -1,7 +1,8 @@
 import { Menu, Transition } from "@headlessui/react"
 import { SelectorIcon } from "@heroicons/react/outline"
 import { Fragment } from "react"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
+import Link from "next/link"
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -44,15 +45,16 @@ export default function Profile({ session }) {
                     <div className="py-1">
                         <Menu.Item>
                             {({ active }) => (
-                                <a
-                                    href="#"
-                                    className={classNames(
-                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                        'block px-4 py-2 text-sm'
-                                    )}
-                                >
-                                    View profile
-                                </a>
+                                <Link href={`/users/${session.user.username}`}>
+                                    <a
+                                        className={classNames(
+                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                            'block px-4 py-2 text-sm'
+                                        )}
+                                    >
+                                        View profile
+                                    </a>
+                                </Link>
                             )}
                         </Menu.Item>
                     </div>
