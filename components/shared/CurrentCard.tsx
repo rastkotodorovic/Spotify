@@ -13,80 +13,113 @@ export default function CurrentCard({ type, playlist }) {
 
     useEffect(() => {
       if (spotifyApi.getAccessToken() && playlist) {
-          if (type === playlist) {
-            spotifyApi.areFollowingPlaylist(playlist.owner.id, playlist.id, [session.user.username])
-              .then(function(data) {
-                  setIsFollowing(data.body[0])
-              }, function(err) {
-                  console.log('Something went wrong!', err)
-              });
-          } else if (type === 'artist') {
-              spotifyApi.isFollowingArtists([playlist.id])
-                .then(function(data) {
-                    setIsFollowing(data.body[0])
-                }, function(err) {
-                    console.log('Something went wrong!', err)
-                });
-          } else if (type === 'user') {
-            spotifyApi.isFollowingUsers([playlist.id])
-                .then(function(data) {
-                    setIsFollowing(data.body[0])
-                }, function(err) {
-                    console.log('Something went wrong!', err)
-                });
+          switch(type) {
+              case 'playlist':
+                  spotifyApi.areFollowingPlaylist(playlist.owner.id, playlist.id, [session.user.username])
+                      .then(function(data) {
+                          setIsFollowing(data.body[0])
+                      }, function(err) {
+                          console.log('Something went wrong!', err)
+                      });
+                  break;
+              case 'artist':
+                  spotifyApi.isFollowingArtists([playlist.id])
+                      .then(function(data) {
+                          setIsFollowing(data.body[0])
+                      }, function(err) {
+                          console.log('Something went wrong!', err)
+                      });
+                  break;
+              case 'user':
+                  spotifyApi.isFollowingUsers([playlist.id])
+                      .then(function(data) {
+                          setIsFollowing(data.body[0])
+                      }, function(err) {
+                          console.log('Something went wrong!', err)
+                      });
+                  break;
+              case 'album':
+                  spotifyApi.containsMySavedAlbums([playlist.id])
+                      .then(function(data) {
+                          setIsFollowing(data.body[0])
+                      }, function(err) {
+                          console.log('Something went wrong!', err)
+                      })
+                  break;
           }
       }
     }, [spotifyApi.getAccessToken(), playlist])
 
     const handleFollow = () => {
-        if (type === 'playlist') {
-            if (isFollowing) {
-              spotifyApi.unfollowPlaylist(playlist.id)
-                  .then(function(data) {
-                      setIsFollowing(false)
-                  }, function(err) {
-                      console.log('Something went wrong!', err)
-                  })
-            } else {
-                spotifyApi.followPlaylist(playlist.id)
-                    .then(function(data) {
-                        setIsFollowing(true)
-                    }, function(err) {
-                        console.log('Something went wrong!', err)
-                    })
-            }
-        } else if (type === 'artist') {
-            if (isFollowing) {
-              spotifyApi.unfollowArtists([playlist.id])
-                  .then(function(data) {
-                      setIsFollowing(false)
-                  }, function(err) {
-                      console.log('Something went wrong!', err)
-                  })
-            } else {
-                spotifyApi.followPlaylist([playlist.id])
-                    .then(function(data) {
-                        setIsFollowing(true)
-                    }, function(err) {
-                        console.log('Something went wrong!', err)
-                    })
-            }
-        } else if (type === 'user') {
-            if (isFollowing) {
-                spotifyApi.unfollowUsers([playlist.id])
-                    .then(function(data) {
-                        setIsFollowing(false)
-                    }, function(err) {
-                        console.log('Something went wrong!', err)
-                    })
-              } else {
-                  spotifyApi.followUsers([playlist.id])
-                      .then(function(data) {
-                          setIsFollowing(true)
-                      }, function(err) {
-                          console.log('Something went wrong!', err)
-                      })
-              }
+        switch(type) {
+            case 'playlist':
+                if (isFollowing) {
+                    spotifyApi.unfollowPlaylist(playlist.id)
+                        .then(function(data) {
+                            setIsFollowing(false)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                } else {
+                    spotifyApi.followPlaylist(playlist.id)
+                        .then(function(data) {
+                            setIsFollowing(true)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                }
+                break;
+            case 'artist':
+                if (isFollowing) {
+                    spotifyApi.unfollowArtists([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(false)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                } else {
+                    spotifyApi.followPlaylist([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(true)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                }
+                break;
+            case 'user':
+                if (isFollowing) {
+                    spotifyApi.unfollowUsers([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(false)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                } else {
+                    spotifyApi.followUsers([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(true)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                }
+                break;
+            case 'album':
+                if (isFollowing) {
+                    spotifyApi.removeFromMySavedAlbums([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(false)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                } else {
+                    spotifyApi.addToMySavedAlbums([playlist.id])
+                        .then(function(data) {
+                            setIsFollowing(true)
+                        }, function(err) {
+                            console.log('Something went wrong!', err)
+                        })
+                }
+                break;
         }
     }
 

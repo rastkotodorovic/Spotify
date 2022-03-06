@@ -18,30 +18,30 @@ export default function SelectedArtist() {
     useEffect(() => {
         if (spotifyApi.getAccessToken() && artistId) {
           spotifyApi.getArtist(artistId)
-          .then(function(data) {
-            setArtist(data.body)
-          }, function(err) {
-            console.error(err)
-          })
+              .then(function(data) {
+                setArtist(data.body)
+              }, function(err) {
+                console.error(err)
+              })
 
           spotifyApi.getArtistTopTracks(artistId, 'GB')
-          .then(function(data) {
-                setTracks(data.body.tracks)
-              }, function(err) {
-                console.log('Something went wrong!', err)
-            })
+              .then(function(data) {
+                    setTracks(data.body.tracks)
+                  }, function(err) {
+                    console.log('Something went wrong!', err)
+                })
 
             spotifyApi.getArtistRelatedArtists(artistId)
-            .then(function(data) {
-              setArtists(data.body.artists)
-            })
+                .then(function(data) {
+                  setArtists(data.body.artists)
+                })
 
             spotifyApi.getArtistAlbums(artistId, { limit: 12 })
-            .then(function(data) {
-              setAlbums(data.body.items)
-            }, function(err) {
-              console.error(err)
-            })
+                .then(function(data) {
+                  setAlbums(data.body.items)
+                }, function(err) {
+                  console.error(err)
+                })
         }
     }, [spotifyApi.getAccessToken(), artistId])
 
@@ -53,7 +53,9 @@ export default function SelectedArtist() {
             <div className="my-20">
               <Tracks tracks={tracks} />
             </div>
-            <Cards playlists={artists} title="Related artists" href="artists" />
+            <div className="mb-40">
+                <Cards playlists={artists} title="Related artists" href="artists" />
+            </div>
         </div>
     )
 }
