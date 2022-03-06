@@ -1,4 +1,5 @@
 import Track from "./Track"
+import {ClockIcon} from "@heroicons/react/outline";
 
 export default function Tracks({ tracks }) {
     return (
@@ -13,10 +14,12 @@ export default function Tracks({ tracks }) {
                         <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Album
                         </th>
-                        <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="hidden md:table-cell px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Date added
                         </th>
-                        <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider" />
+                        <th className="hidden md:table-cell px-6 py-3 border-b align-right border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            {/*<ClockIcon className="w-5 h-5" />*/}
+                        </th>
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
