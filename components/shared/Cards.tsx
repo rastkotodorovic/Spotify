@@ -1,15 +1,13 @@
 import Card from "./Card"
 import {useEffect, useState} from "react";
 import useSpotify from "../../hooks/useSpotify";
-import {useSession} from "next-auth/react";
 
 export default function Cards({ playlists, title, href }) {
     const spotifyApi = useSpotify()
-    const { data: session } = useSession()
     const [ isFollowed, setIsFollowed ] = useState([])
 
     useEffect(() => {
-        if (spotifyApi.getAccessToken() && playlists) {
+        if (spotifyApi.getAccessToken() && playlists?.length) {
             let ids = [];
             playlists.map((playlist) => {
                 ids.push(playlist.album ? playlist.album.id : playlist.id)
@@ -48,8 +46,8 @@ export default function Cards({ playlists, title, href }) {
                         key={playlist.album ? playlist.album.id : playlist.id}
                         playlist={playlist.album ? playlist.album : playlist}
                         href={href}
-                        isFollowed={isFollowed}
                         index={index}
+                        isFollowed={isFollowed}
                         setIsFollowed={setIsFollowed}
                     />
                 ))}

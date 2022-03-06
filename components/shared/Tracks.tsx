@@ -1,7 +1,29 @@
 import Track from "./Track"
 import {ClockIcon} from "@heroicons/react/outline";
+import { useEffect, useState } from "react";
+import useSpotify from "../../hooks/useSpotify";
 
 export default function Tracks({ tracks }) {
+    const spotifyApi = useSpotify()
+    const [ isFollowed, setIsFollowed ] = useState([])
+
+    useEffect(() => {
+        if (spotifyApi.getAccessToken() && tracks?.length) {
+            let ids = [];
+            tracks.map((track) => {
+                ids.push(track.track ? track.track.id : track.id)
+            });
+
+            spotifyApi.containsMySavedTracks(ids)
+                .then(function(data) {
+                    setIsFollowed(data.body)
+                }, function(err) {
+                    console.log('Something went wrong!', err)
+                })
+
+        }
+    }, [spotifyApi.getAccessToken(), tracks])
+
     return (
         <div className="hidden mt-8 sm:block">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">
@@ -28,6 +50,8 @@ export default function Tracks({ tracks }) {
                             key={track.track ? track.track.id : track.id}
                             track={track.track ? track.track : track}
                             number={index}
+                            isFollowed={isFollowed}
+                            setIsFollowed={setIsFollowed}
                         />
                     ))}
                     </tbody>

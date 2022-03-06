@@ -15,7 +15,7 @@ export default function Navigation({ router }) {
     return (
         <div className="space-y-1">
             {navigation.map((item) => (
-                <Link href={item.href}>
+                <Link href={item.href} key={item.name}>
                     <a
                         key={item.name}
                         className={classNames(
