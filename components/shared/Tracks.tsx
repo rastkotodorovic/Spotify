@@ -23,7 +23,7 @@ export default function Tracks({ tracks }) {
                 })
         }
     }, [spotifyApi.getAccessToken(), tracks])
-
+    
     return (
         <div className="hidden mt-8 sm:block">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">

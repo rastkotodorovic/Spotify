@@ -52,7 +52,9 @@ export default function SelectedArtist() {
         <div className="px-4 mt-6 mx-8 sm:px-6 lg:px-8">
             <CurrentCard type="artist" playlist={artist} />
 
-            <Cards playlists={albums} title="Albums" href="albums" />
+            <div className="mt-10">
+                <Cards playlists={albums} title="Albums" href="albums" />
+            </div>
             <div className="my-20">
               <Tracks tracks={tracks} />
             </div>
