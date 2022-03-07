@@ -9,7 +9,7 @@ export default function Tracks({ tracks }) {
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && tracks?.length) {
-            let ids = []
+            let ids: string[] = []
             tracks.map((track) => {
                 ids.push(track.track ? track.track.id : track.id)
             })
@@ -18,12 +18,12 @@ export default function Tracks({ tracks }) {
                 .then(function(data) {
                     setIsFollowed(data.body)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }
     }, [spotifyApi.getAccessToken(), tracks])
-    
+
     return (
         <div className="hidden mt-8 sm:block">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">
@@ -45,9 +45,9 @@ export default function Tracks({ tracks }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
-                    {tracks?.map((track, index) => (
+                    {tracks?.map((track, index: number) => (
                         <Track
-                            key={track.track ? track.track.id : track.id}
+                            key={index}
                             track={track.track ? track.track : track}
                             number={index}
                             isFollowed={isFollowed}
