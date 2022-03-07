@@ -8,8 +8,7 @@ export default function Header({ children }) {
     return (
         <div className="lg:pl-64 flex flex-col">
             <main className="flex-1">
-                <div
-                    className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+                <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 ">
                     <div className="flex justify-between">
                         <ChevronLeftIcon
                             className="w-8 h-8 mr-6 bg-gray-100 p-1 rounded-full cursor-pointer"
