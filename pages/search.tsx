@@ -10,4 +10,4 @@ const Search: NextPage = () => {
     )
 }
 
-export default Search;
+export default Search

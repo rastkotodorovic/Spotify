@@ -1,8 +1,8 @@
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
-import { SessionProvider } from "next-auth/react";
-import { RecoilRoot } from "recoil";
-import Layout from "../components/layout/Layout";
+import { SessionProvider } from "next-auth/react"
+import { RecoilRoot } from "recoil"
+import Layout from "../components/layout/Layout"
 
 function MyApp({ Component, pageProps: { session, ...pageProps }, ...appProps }: AppProps) {
     if (appProps.router.pathname === '/login') {
@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps }, ...appProps }:
             <SessionProvider session={session}>
                 <Component {...pageProps} />
             </SessionProvider>
-        );
+        )
     }
 
     return (
