@@ -20,12 +20,16 @@ export default function Center({ spotifyApi, track }) {
     const handlePlayPause = () => {
         spotifyApi.getMyCurrentPlaybackState()
             .then((data) => {
-                if (data.body.is_playing) {
+                if (data?.body?.is_playing) {
                     spotifyApi.pause()
-                    setIsPlaying(false)
+                        .then(function() {
+                            setIsPlaying(false)
+                        }).catch((err: Error) => console.log(err))
                 } else {
                     spotifyApi.play()
-                    setIsPlaying(true)
+                        .then(function() {
+                            setIsPlaying(true)
+                        }).catch((err: Error) => console.log(err))
                 }
             })
     }

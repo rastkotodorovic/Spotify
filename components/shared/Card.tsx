@@ -6,30 +6,30 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
     const router = useRouter()
     const spotifyApi = useSpotify()
 
-    const handleFollow = (e) => {
+    const handleFollow = (e: { stopPropagation: () => void }) => {
         e.stopPropagation()
         switch (href) {
             case 'artists':
                 if (isFollowed[index]) {
                     spotifyApi.unfollowArtists([playlist.id])
-                        .then(function (data) {
+                        .then(function () {
                             let newArr = [...isFollowed]
                             newArr[index] = false
 
                             setIsFollowed(newArr)
                         })
-                        .catch(function (err) {
+                        .catch(function (err: Error) {
                             console.log('Something went wrong!', err)
                         })
                 } else {
                     spotifyApi.followArtists([playlist.id])
-                        .then(function (data) {
+                        .then(function () {
                             let newArr = [...isFollowed]
                             newArr[index] = true
 
                             setIsFollowed(newArr)
                         })
-                        .catch(function (err) {
+                        .catch(function (err: Error) {
                             console.log('Something went wrong!', err)
                         })
                 }
@@ -37,24 +37,24 @@ export default function Card({ playlist, href, isFollowed, index, setIsFollowed 
             case 'albums':
                 if (isFollowed[index]) {
                     spotifyApi.removeFromMySavedAlbums([playlist.id])
-                        .then(function(data) {
+                        .then(function() {
                             let newArr = [...isFollowed]
                             newArr[index] = false
 
                             setIsFollowed(newArr)
                         })
-                        .catch(function(err) {
+                        .catch(function(err: Error) {
                             console.log('Something went wrong!', err)
                         })
                 } else {
                     spotifyApi.addToMySavedAlbums([playlist.id])
-                        .then(function(data) {
+                        .then(function() {
                             let newArr = [...isFollowed]
                             newArr[index] = true
 
                             setIsFollowed(newArr)
                         })
-                        .catch(function(err) {
+                        .catch(function(err: Error) {
                             console.log('Something went wrong!', err)
                         })
                 }

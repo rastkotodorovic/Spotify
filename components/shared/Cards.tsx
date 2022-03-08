@@ -9,7 +9,7 @@ export default function Cards({ playlists, title, href }) {
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && playlists?.length) {
-            let ids = []
+            let ids: string[] = []
             playlists.map((playlist) => {
                 ids.push(playlist.album ? playlist.album.id : playlist.id)
             })
@@ -20,7 +20,7 @@ export default function Cards({ playlists, title, href }) {
                         .then(function(data) {
                             setIsFollowed(data.body)
                         })
-                        .catch(function(err) {
+                        .catch(function(err: Error) {
                             console.log('Something went wrong!', err)
                         })
                     break;
@@ -29,7 +29,7 @@ export default function Cards({ playlists, title, href }) {
                         .then(function(data) {
                             setIsFollowed(data.body)
                         })
-                        .catch(function(err) {
+                        .catch(function(err: Error) {
                             console.log('Something went wrong!', err)
                         })
                     break;
@@ -44,7 +44,7 @@ export default function Cards({ playlists, title, href }) {
                 role="list"
                 className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 xl:grid-cols-6 mt-5 mb-16"
             >
-                {playlists?.map((playlist, index) => (
+                {playlists?.map((playlist, index: Number) => (
                     <Card
                         key={playlist.album ? playlist.album.id : playlist.id}
                         playlist={playlist.album ? playlist.album : playlist}

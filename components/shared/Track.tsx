@@ -11,36 +11,37 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
     const [ seek, setSeek ] = useRecoilState(seekState)
 
     const playSong = () => {
-        setTrackId(track.id)
-        setSeek(0)
-        setIsPlaying(true)
-        spotifyApi.play({
-           uris: [ track.uri ],
-        }).catch((err) => console.log(err))
+        spotifyApi.play({ uris: [ track.uri ] })
+            .then(function() {
+                setTrackId(track.id)
+                setSeek(0)
+                setIsPlaying(true)
+            })
+            .catch((err: Error) => console.log(err))
     }
 
-    const handleFollow = (e) => {
+    const handleFollow = (e: { stopPropagation: () => void }) => {
         e.stopPropagation()
         if (isFollowed[number]) {
             spotifyApi.removeFromMySavedTracks([track.id])
-                .then(function (data) {
+                .then(function () {
                     let newArr = [...isFollowed]
                     newArr[number] = false
 
                     setIsFollowed(newArr)
                 })
-                .catch(function (err) {
+                .catch(function (err: Error) {
                     console.log('Something went wrong!', err)
                 })
         } else {
             spotifyApi.addToMySavedTracks([track.id])
-                .then(function (data) {
+                .then(function () {
                     let newArr = [...isFollowed]
                     newArr[number] = true
 
                     setIsFollowed(newArr)
                 })
-                .catch(function (err) {
+                .catch(function (err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }

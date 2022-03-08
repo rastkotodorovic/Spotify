@@ -25,33 +25,25 @@ export default function Liked() {
 
     return (
         <>
-            <div className="px-4 mt-6 sm:px-6 lg:px-8">
-                <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Current playlist</h2>
-                <ul role="list"
-                    className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4 mt-3">
-                    <li className="relative col-span-1 flex shadow-sm rounded-md">
-                        <div
-                            className={classNames(
-                                'bg-green-600',
-                                'flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md'
-                            )}
-                        >
-                            <img src="https://us.123rf.com/450wm/artnata/artnata1702/artnata170200049/71190968-green-heart-isolated-on-transparent-background-happy-valentine-s-day-greeting-template-.jpg?ver=6" />
-                        </div>
-                        <div
-                            className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
-                            <div className="flex-1 px-4 py-2 text-sm truncate">
-                                <a href="#" className="text-gray-900 font-medium hover:text-gray-600">
-                                    Liked tracks
-                                </a>
-                                <p className="text-gray-500">23 tracks</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <Tracks tracks={tracks} />
-        </>
+          <div className="px-4 mt-6 sm:px-6 lg:px-8">
+            <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide mb-3">Playlist</h2>
+            <a className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <img
+                    className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    src="https://us.123rf.com/450wm/artnata/artnata1702/artnata170200049/71190968-green-heart-isolated-on-transparent-background-happy-valentine-s-day-greeting-template-.jpg?ver=6"
+                    alt=""
+                />
+                <div className="flex flex-col justify-between px-8 py-4 leading-normal">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        Liked tracks
+                    </h5>
+                    <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
+                        {tracks?.length} tracks
+                    </p>
+                </div>
+            </a>
+          </div>
+          <Tracks tracks={tracks} />
+      </>
     )
 }

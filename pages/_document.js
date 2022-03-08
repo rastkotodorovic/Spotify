@@ -5,8 +5,8 @@ export default function Document() {
         <Html className="h-full bg-white">
             <Head />
             <body className="h-full">
-            <Main />
-            <NextScript />
+                <Main />
+                <NextScript />
             </body>
         </Html>
     )
