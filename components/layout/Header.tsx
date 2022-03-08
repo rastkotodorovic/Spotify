@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 
-export default function Header({ children }) {
+const Header = ({ children }) => {
     const router = useRouter()
 
     return (
@@ -51,3 +51,5 @@ export default function Header({ children }) {
         </div>
     )
 }
+
+export default Header

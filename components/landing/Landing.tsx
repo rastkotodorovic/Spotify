@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
 
 import useSpotify from "../../hooks/useSpotify"
@@ -16,31 +16,31 @@ export default function Landing() {
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getFeaturedPlaylists()
-                .then((data) => {
+                .then((data: { body: { playlists: { items: SetStateAction<never[]> } } }) => {
                     setFeaturedPlaylists(data.body.playlists.items)
                 })
 
             spotifyApi.getNewReleases({ limit : 10 })
-                .then(function(data) {
+                .then(function(data: { body: { albums: { items: SetStateAction<never[]> } } }) {
                     setNewAlbums(data.body.albums.items)
                   })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                      console.log("Something went wrong!", err)
                   })
 
             spotifyApi.getMyRecentlyPlayedTracks({limit : 10})
-                    .then(function(data) {
+                    .then(function(data: { body: { items: SetStateAction<never[]> } }) {
                         setRecentlyPlayed(data.body.items)
                     })
-                    .catch(function(err) {
+                    .catch(function(err: Error) {
                         console.log('Something went wrong!', err)
                     })
 
             spotifyApi.getMyTopArtists()
-                .then(function(data) {
+                .then(function(data: { body: { items: SetStateAction<never[]> } }) {
                     setTopArtists(data.body.items)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }

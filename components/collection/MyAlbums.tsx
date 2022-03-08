@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards";
@@ -10,10 +10,10 @@ export default function MyAlbums() {
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getMySavedAlbums()
-                .then(function(data) {
+                .then(function(data: { body: { items: SetStateAction<never[]>; }; }) {
                     setAlbums(data.body.items)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 });
         }

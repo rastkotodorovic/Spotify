@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 
 import useSpotify from "../../hooks/useSpotify"
 import CurrentCard from "../shared/CurrentCard"
@@ -15,11 +15,11 @@ export default function SelectedAlbum() {
     useEffect(() => {
         if (spotifyApi.getAccessToken() && albumId) {
             spotifyApi.getAlbum(albumId)
-                .then(function (data) {
+                .then(function (data: any) {
                     setAlbum(data.body)
                     setTracks(data.body.tracks.items)
                 })
-                .catch(function (err) {
+                .catch(function (err: Error) {
                     console.error(err)
                 })
         }

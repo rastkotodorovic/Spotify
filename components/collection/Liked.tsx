@@ -1,23 +1,19 @@
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 import useSpotify from "../../hooks/useSpotify"
 
 import Tracks from "../shared/Tracks"
 
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function Liked() {
     const spotifyApi = useSpotify()
-    const [ tracks, setTracks ] = useState(null)
+    const [ tracks, setTracks ] = useState([])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getMySavedTracks()
-                .then(function(data) {
+                .then(function(data: { body: { items: SetStateAction<never[]> } }) {
                     setTracks(data.body.items)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
 import useSpotify from "../../hooks/useSpotify"
@@ -18,31 +18,31 @@ export default function SelectedArtist() {
     useEffect(() => {
         if (spotifyApi.getAccessToken() && artistId) {
           spotifyApi.getArtist(artistId)
-              .then(function(data) {
+              .then(function(data: { body: SetStateAction<never[]> }) {
                 setArtist(data.body)
               })
-              .catch(function(err) {
+              .catch(function(err: Error) {
                 console.error(err)
               })
 
           spotifyApi.getArtistTopTracks(artistId, 'GB')
-              .then(function(data) {
+              .then(function(data: { body: { tracks: SetStateAction<never[]> } }) {
                   setTracks(data.body.tracks)
               })
-              .catch(function(err) {
+              .catch(function(err: Error) {
                   console.log('Something went wrong!', err)
               })
 
             spotifyApi.getArtistRelatedArtists(artistId)
-                .then(function(data) {
+                .then(function(data: { body: { artists: SetStateAction<never[]> } }) {
                   setArtists(data.body.artists)
                 })
 
             spotifyApi.getArtistAlbums(artistId, { limit: 12 })
-                .then(function(data) {
+                .then(function(data: { body: { items: SetStateAction<never[]> } }) {
                   setAlbums(data.body.items)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                   console.error(err)
                 })
         }

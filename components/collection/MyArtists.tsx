@@ -1,32 +1,24 @@
 
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 
 import useSpotify from "../../hooks/useSpotify"
 import Cards from "../shared/Cards"
 
 export default function MyArtists() {
     const spotifyApi = useSpotify()
-    const [ artists, setArtists ] = useState(null)
+    const [ artists, setArtists ] = useState([])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getFollowedArtists()
-                .then(function(data) {
+                .then(function(data: { body: { artists: { items: SetStateAction<never[]> } } }) {
                     setArtists(data.body.artists.items)
                 })
-                .catch(function(err) {
+                .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }
     }, [spotifyApi.getAccessToken()])
-
-    if (artists?.total === 0) {
-        return (
-            <div>
-                No artists
-            </div>
-        )
-    }
 
     return (
         <div className="px-4 mt-6 mx-8 sm:px-6 lg:px-8">
