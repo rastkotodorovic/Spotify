@@ -2,7 +2,11 @@ import Sidebar from "./sidebar/Sidebar"
 import Player from "./player/Player"
 import Header from "./Header"
 
-export default function Layout({ children }) {
+interface LayoutProps {
+    children: React.ReactNode;
+ }
+
+export default function Layout({ children }: LayoutProps) {
     return (
       <>
           <div className="min-h-full">

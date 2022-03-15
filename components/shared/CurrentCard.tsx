@@ -2,10 +2,6 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import useSpotify from "../../hooks/useSpotify"
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function CurrentCard({ type, playlist }) {
     const spotifyApi = useSpotify()
     const [ isFollowing, setIsFollowing ] = useState(false)
@@ -15,7 +11,7 @@ export default function CurrentCard({ type, playlist }) {
       if (spotifyApi.getAccessToken() && playlist?.id) {
           switch(type) {
               case 'playlist':
-                  spotifyApi.areFollowingPlaylist(playlist.owner.id, playlist.id, [session.user.username])
+                  spotifyApi.areFollowingPlaylist(playlist.owner.id, playlist.id, [session?.user?.username])
                       .then(function(data) {
                           setIsFollowing(data.body[0])
                       })
@@ -146,7 +142,7 @@ export default function CurrentCard({ type, playlist }) {
               />
               <div className="flex flex-col justify-between px-8 py-4 leading-normal">
                   <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      {playlist?.display_name ? playlist?.display_name : playlist?.name}
+                      {playlist?.display_name ? playlist?.display_name : playlist?.username}
                   </h5>
                   <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
                       {playlist?.followers?.total} followers

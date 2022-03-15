@@ -2,7 +2,11 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/outline"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 
-const Header = ({ children }) => {
+interface LayoutProps {
+    children: React.ReactNode;
+ }
+
+const Header = ({ children }: LayoutProps) => {
     const router = useRouter()
 
     return (
@@ -24,7 +28,7 @@ const Header = ({ children }) => {
                                         Playlists
                                     </p>
                                 </Link>
-                                <Link href="/collection/artists" className="mr-2 cursor-pointer">
+                                <Link href="/collection/artists">
                                     <p className={`cursor-pointer text-sm text-gray-700 p-2 px-4 rounded-lg ${router.pathname === '/collection/artists' ? 'bg-gray-100' : ''}`}>
                                         Artists
                                     </p>

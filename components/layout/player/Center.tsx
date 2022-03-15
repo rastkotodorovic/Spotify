@@ -35,14 +35,16 @@ export default function Center({ spotifyApi, track }) {
     }
 
     useEffect(() => {
-        let interval = null
+        let interval
 
         if (isPlaying) {
             interval = setInterval(() => {
                 setSeek((seek) => seek + 1000)
             }, 1000)
         } else {
-            clearInterval(interval)
+            if (interval) {
+                clearInterval(interval)
+            }
         }
 
         return () => {

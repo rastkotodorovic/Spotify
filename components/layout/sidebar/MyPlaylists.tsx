@@ -32,14 +32,14 @@ export default function MyPlaylists({ router, session }) {
             <div className="mt-4 space-y-1" role="group" aria-labelledby="desktop-teams-headline">
                 {playlists.map((playlist) => (
                     <a
-                        key={playlist.id}
+                        key={playlist?.id}
                         className={classNames(
-                            router.asPath === `/playlist/${playlist.id}` ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                            router.asPath === `/playlist/${playlist?.id}` ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md cursor-pointer'
                         )}
-                        onClick={() => router.push(`/playlist/${playlist.id}`)}
+                        onClick={() => router.push(`/playlist/${playlist?.id}`)}
                     >
-                        <span className="truncate">{playlist.name}</span>
+                        <span className="truncate">{playlist?.name}</span>
                     </a>
                 ))}
             </div>

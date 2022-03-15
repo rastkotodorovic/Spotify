@@ -12,5 +12,5 @@ export const playlistState = atom({
 
 export const myPlaylists = atom({
     key: "myPlaylists",
-    default: [],
+    default: [] as any[],
 })

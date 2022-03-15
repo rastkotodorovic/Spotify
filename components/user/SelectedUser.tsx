@@ -10,12 +10,12 @@ import Tracks from "../shared/Tracks"
 export default function SelectedUser() {
     const spotifyApi = useSpotify()
     const router = useRouter()
-    const {data: session} = useSession()
-    const {userId} = router.query
-    const [user, setUser] = useState(null)
-    const [playlists, setPlaylists] = useState([])
-    const [topTracks, setTopTracks] = useState([])
-    const [topArtists, setTopArtists] = useState([])
+    const { data: session } = useSession()
+    const { userId } = router.query
+    const [ user, setUser ] = useState({id: ''})
+    const [ playlists, setPlaylists ] = useState([])
+    const [ topTracks, setTopTracks ] = useState([])
+    const [ topArtists, setTopArtists ] = useState([])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && userId) {
@@ -36,7 +36,7 @@ export default function SelectedUser() {
                     console.log('Something went wrong!', err)
                 })
 
-            if (user.id === session.user.username) {
+            if (user.id === session?.user?.username) {
                 spotifyApi.getMyTopTracks({limit: 10})
                     .then(function (data) {
                         setTopTracks(data.body.items)

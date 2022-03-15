@@ -5,11 +5,17 @@ import Tracks from "../shared/Tracks"
 import useSpotify from "../../hooks/useSpotify"
 import CurrentCard from "../shared/CurrentCard"
 
+interface Playlist {
+    tracks: { items: any[] };
+    id: string;
+    owner: any[];
+}
+
 export default function SelectedPlaylist() {
     const spotifyApi = useSpotify()
     const router = useRouter()
     const { playlistId } = router.query
-    const [ playlist, setPlaylist ] = useState(null)
+    const [ playlist, setPlaylist ] = useState(null as unknown as Playlist)
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && playlistId) {

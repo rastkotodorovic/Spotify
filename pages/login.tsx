@@ -1,3 +1,4 @@
+import { GetServerSideProps } from "next"
 import { getProviders, signIn } from "next-auth/react"
 
 const Login = ({ providers }) => {
@@ -13,7 +14,7 @@ const Login = ({ providers }) => {
                         />
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
                     </div>
-                    {Object.values(providers).map((provider) => (
+                    {Object.values(providers).map((provider: any) => (
                         <div key={provider.name}>
                             <button
                                 type="submit"
@@ -32,7 +33,7 @@ const Login = ({ providers }) => {
 
 export default Login
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
     const providers = await getProviders()
 
     return {
