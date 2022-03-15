@@ -16,7 +16,7 @@ export default function SelectedPlaylist() {
     const router = useRouter()
     const { playlistId } = router.query
     const [ playlist, setPlaylist ] = useState(null as unknown as Playlist)
-    const [ tracks, setTracks ] = useState([])
+    const [ tracks, setTracks ] = useState<string[]>([])
     const [ offset, setOffset ] = useState(0)
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default function SelectedPlaylist() {
             spotifyApi.getPlaylistTracks(playlistId, { offset: offset, limit: 20 })
                 .then((data) => {
                     if (tracks.length) {
-                        setTracks((oldArray: Array) => [...oldArray, ...data.body.items])
+                        setTracks((oldArray) => [...oldArray, ...data.body.items])
                     } else {
                         setTracks(data.body.items)
                     }

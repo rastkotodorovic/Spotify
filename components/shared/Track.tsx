@@ -4,7 +4,16 @@ import { isPlayingState, seekState, trackIdState } from "../../atoms/trackAtom"
 import useSpotify from "../../hooks/useSpotify"
 import millisToMinutesAndSeconds from "../../lib/time"
 
-export default function Track({ track, number, isFollowed, setIsFollowed, lastTrack = null }) {
+type Props = {
+    track: any
+    key: number
+    isFollowed: boolean[]
+    setIsFollowed: { (offset: boolean[]): void }
+    number: number
+    lastTrack?: any
+}
+
+export default function Track({ track, number, isFollowed, setIsFollowed, lastTrack }: Props) {
     const spotifyApi = useSpotify()
     const [ trackId, setTrackId ] = useRecoilState(trackIdState)
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)

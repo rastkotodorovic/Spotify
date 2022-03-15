@@ -1,18 +1,30 @@
-import {useCallback, useEffect, useRef, useState} from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import Track from "./Track"
 import useSpotify from "../../hooks/useSpotify"
 
-export default function Tracks({ tracks, setOffset = null }) {
-    const spotifyApi = useSpotify()
-    const [ isFollowed, setIsFollowed ] = useState([])
+type Props = {
+    tracks: any[]
+    offset?: number|null
+    setOffset?: { (offset: number): void } | null
+}
 
-    const observer = useRef()
+interface RefObject {
+    disconnect: () => void
+    observe: (node) => void
+}
+
+export default function Tracks({ tracks, offset = null, setOffset = null }: Props) {
+    const spotifyApi = useSpotify()
+    const [ isFollowed, setIsFollowed ] = useState<boolean[]>([])
+
+    const observer = useRef<RefObject>()
     const lastTrackRef = useCallback(node => {
         if (observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                setOffset((prevOffset) => prevOffset + 20)
+            if (entries[0].isIntersecting && setOffset) {
+                // @ts-ignore
+                setOffset((prevOffset: number) => prevOffset + 20)
             }
         })
         if (node) observer.current.observe(node)
@@ -35,7 +47,6 @@ export default function Tracks({ tracks, setOffset = null }) {
         }
     }, [spotifyApi.getAccessToken(), tracks])
 
-    // @ts-ignore
     return (
         <div className="hidden mt-8 sm:block mb-24">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">
