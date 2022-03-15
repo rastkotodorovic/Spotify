@@ -4,7 +4,7 @@ import { isPlayingState, seekState, trackIdState } from "../../atoms/trackAtom"
 import useSpotify from "../../hooks/useSpotify"
 import millisToMinutesAndSeconds from "../../lib/time"
 
-export default function Track({ track, number, isFollowed, setIsFollowed }) {
+export default function Track({ track, number, isFollowed, setIsFollowed, lastTrack = null }) {
     const spotifyApi = useSpotify()
     const [ trackId, setTrackId ] = useRecoilState(trackIdState)
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
@@ -51,6 +51,7 @@ export default function Track({ track, number, isFollowed, setIsFollowed }) {
         <tr
             className={`hover:bg-gray-100 cursor-pointer ${trackId === track.id ? 'bg-gray-100' : ''}`}
             onClick={playSong}
+            ref={lastTrack}
         >
             <td className="px-6 py-4 max-w-0 w-5/12 whitespace-nowrap text-sm font-medium text-gray-900">
                 <div className="flex items-center space-x-3 lg:pl-2">

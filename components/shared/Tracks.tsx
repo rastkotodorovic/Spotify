@@ -1,11 +1,22 @@
-import { useEffect, useState } from "react"
+import {useCallback, useEffect, useRef, useState} from "react"
 
 import Track from "./Track"
 import useSpotify from "../../hooks/useSpotify"
 
-export default function Tracks({ tracks }) {
+export default function Tracks({ tracks, setOffset = null }) {
     const spotifyApi = useSpotify()
     const [ isFollowed, setIsFollowed ] = useState([])
+
+    const observer = useRef()
+    const lastTrackRef = useCallback(node => {
+        if (observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                setOffset((prevOffset) => prevOffset + 20)
+            }
+        })
+        if (node) observer.current.observe(node)
+    }, [])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && tracks?.length) {
@@ -24,8 +35,9 @@ export default function Tracks({ tracks }) {
         }
     }, [spotifyApi.getAccessToken(), tracks])
 
+    // @ts-ignore
     return (
-        <div className="hidden mt-8 sm:block">
+        <div className="hidden mt-8 sm:block mb-24">
             <div className="align-middle inline-block min-w-full border-b border-gray-200">
                 <table className="min-w-full">
                     <thead>
@@ -45,15 +57,30 @@ export default function Tracks({ tracks }) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-100">
-                    {tracks?.map((track, index: number) => (
-                        <Track
-                            key={index}
-                            track={track.track ? track.track : track}
-                            number={index}
-                            isFollowed={isFollowed}
-                            setIsFollowed={setIsFollowed}
-                        />
-                    ))}
+                    {tracks?.map((track, index: number) => {
+                        if (tracks.length === index + 1 && setOffset) {
+                            return (
+                                <Track
+                                    lastTrack={lastTrackRef}
+                                    key={index}
+                                    track={track.track ? track.track : track}
+                                    number={index}
+                                    isFollowed={isFollowed}
+                                    setIsFollowed={setIsFollowed}
+                                />
+                            )
+                        } else {
+                            return (
+                                <Track
+                                    key={index}
+                                    track={track.track ? track.track : track}
+                                    number={index}
+                                    isFollowed={isFollowed}
+                                    setIsFollowed={setIsFollowed}
+                                />
+                            )
+                        }
+                    })}
                     </tbody>
                 </table>
             </div>

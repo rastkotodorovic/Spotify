@@ -16,6 +16,13 @@ export default function SelectedPlaylist() {
     const router = useRouter()
     const { playlistId } = router.query
     const [ playlist, setPlaylist ] = useState(null as unknown as Playlist)
+    const [ tracks, setTracks ] = useState([])
+    const [ offset, setOffset ] = useState(0)
+
+    useEffect(() => {
+        setTracks([])
+        setOffset(0)
+    }, [playlistId])
 
     useEffect(() => {
         if (spotifyApi.getAccessToken() && playlistId) {
@@ -23,8 +30,17 @@ export default function SelectedPlaylist() {
                 .then((data) => {
                     setPlaylist(data.body)
                 })
+
+            spotifyApi.getPlaylistTracks(playlistId, { offset: offset, limit: 20 })
+                .then((data) => {
+                    if (tracks.length) {
+                        setTracks((oldArray: Array) => [...oldArray, ...data.body.items])
+                    } else {
+                        setTracks(data.body.items)
+                    }
+                })
         }
-    }, [spotifyApi.getAccessToken(), playlistId])
+    }, [spotifyApi.getAccessToken(), playlistId, offset])
 
     return (
         <>
@@ -32,7 +48,7 @@ export default function SelectedPlaylist() {
                 <CurrentCard type="playlist" playlist={playlist} />
             </div>
 
-            <Tracks tracks={playlist?.tracks.items} />
+            <Tracks tracks={tracks} setOffset={setOffset} />
         </>
     )
 }

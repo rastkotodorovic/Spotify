@@ -37,7 +37,7 @@ export default function SelectedUser() {
                 })
 
             if (user.id === session?.user?.username) {
-                spotifyApi.getMyTopTracks({limit: 10})
+                spotifyApi.getMyTopTracks({ limit: 10 })
                     .then(function (data) {
                         setTopTracks(data.body.items)
                     })
@@ -70,7 +70,7 @@ export default function SelectedUser() {
                     <Cards playlists={topArtists} title="My top artists" href="artists"/>
 
                     <h2 className="text-gray-600 text-md font-medium tracking-wide">Top tracks</h2>
-                    <Tracks tracks={topTracks}/>
+                    <Tracks tracks={topTracks} />
                 </>
             )}
         </div>

@@ -6,18 +6,23 @@ import Tracks from "../shared/Tracks"
 export default function Liked() {
     const spotifyApi = useSpotify()
     const [ tracks, setTracks ] = useState([])
+    const [ offset, setOffset ] = useState(0)
 
     useEffect(() => {
         if (spotifyApi.getAccessToken()) {
-            spotifyApi.getMySavedTracks()
+            spotifyApi.getMySavedTracks({ offset: offset })
                 .then(function(data: { body: { items: SetStateAction<never[]> } }) {
-                    setTracks(data.body.items)
+                    if (tracks.length) {
+                        setTracks((oldArray: Array) => [...oldArray, ...data.body.items])
+                    } else {
+                        setTracks(data.body.items)
+                    }
                 })
                 .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
                 })
         }
-    }, [spotifyApi.getAccessToken()])
+    }, [spotifyApi.getAccessToken(), offset])
 
     return (
         <>
@@ -39,7 +44,7 @@ export default function Liked() {
                 </div>
             </a>
           </div>
-          <Tracks tracks={tracks} />
+          <Tracks tracks={tracks} setOffset={setOffset} />
       </>
     )
 }

@@ -28,7 +28,7 @@ export default function Landing() {
                      console.log("Something went wrong!", err)
                   })
 
-            spotifyApi.getMyRecentlyPlayedTracks({limit : 10})
+            spotifyApi.getMyRecentlyPlayedTracks({ limit : 10 })
                     .then(function(data: { body: { items: SetStateAction<never[]> } }) {
                         setRecentlyPlayed(data.body.items)
                     })
