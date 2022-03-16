@@ -100,7 +100,7 @@ export default function Center({ spotifyApi, track }) {
                     <ReplyIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"/>
                 </div>
                 <div className="flex">
-                    <div className="flex-none w-14 text-center text-gray-400">
+                    <div className="flex-none w-14 text-center text-gray-500 text-sm mt-1">
                         {millisToMinutesAndSeconds(seek)}
                     </div>
                     <div className="grow">
@@ -113,7 +113,7 @@ export default function Center({ spotifyApi, track }) {
                             max={track?.duration_ms}
                         />
                     </div>
-                    <div className="flex-none w-14 text-center text-gray-400">
+                    <div className="flex-none w-14 text-center text-gray-500 text-sm mt-1">
                         {isNaN(track?.duration_ms) ? '0:00' : millisToMinutesAndSeconds(track?.duration_ms)}
                     </div>
                 </div>

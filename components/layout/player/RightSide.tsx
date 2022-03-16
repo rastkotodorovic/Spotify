@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil"
 import { isPlayingState } from "../../../atoms/trackAtom"
 
 export default function RightSide({ spotifyApi }) {
-    const [ volume, setVolume ] = useState(50)
+    const [ volume, setVolume ] = useState(100)
     const isPlaying = useRecoilValue(isPlayingState)
 
     useEffect(() => {
