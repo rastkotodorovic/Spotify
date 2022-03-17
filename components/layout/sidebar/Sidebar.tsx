@@ -25,16 +25,19 @@ export default function Sidebar() {
                     </div>
                 </Link>
 
-                <div className="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
+                <div className="mt-6 h-0 flex-1 flex flex-col">
                     <Profile session={session} />
 
                     <SearchInput />
 
-                    <nav className="px-3 mt-6">
+                    <div className="px-3 mt-6">
                         <Navigation router={router} />
+                        <hr className="mt-3" />
+                    </div>
 
+                    <div className="px-3 mb-24 overflow-y-auto">
                         <MyPlaylists router={router} session={session} />
-                    </nav>
+                    </div>
                 </div>
             </div>
         </>

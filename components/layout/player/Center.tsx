@@ -81,23 +81,23 @@ export default function Center({ spotifyApi, track }) {
         <>
             <div className="flex flex-col mt-3">
                 <div className="flex items-center justify-center">
-                    <SwitchHorizontalIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
+                    <SwitchHorizontalIcon className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out" />
                     <RewindIcon
                         onClick={() => spotifyApi.skipToPrevious()}
-                        className="ml-10 w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
+                        className="ml-10 w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
                     />
                     {isPlaying ? (
-                        <PauseIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
+                        <PauseIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 hover:fill-gray-700 transition transform duration-100 ease-out" />
                     ) : (
-                        <PlayIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 cursor-pointer hover:scale-125 transition transform duration-100 ease-out" />
+                        <PlayIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 hover:fill-gray-700 transition transform duration-100 ease-out" />
                     )}
 
                     <FastForwardIcon
                         onClick={() => spotifyApi.skipToNext()}
-                        className="mr-10 w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"
+                        className="mr-10 w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
                     />
 
-                    <ReplyIcon className="w-5 h-5 cursor-pointer hover:scale-125 transition transform duration-100 ease-out"/>
+                    <ReplyIcon className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"/>
                 </div>
                 <div className="flex">
                     <div className="flex-none w-14 text-center text-gray-500 text-sm mt-1">

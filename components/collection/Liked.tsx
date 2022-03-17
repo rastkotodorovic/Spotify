@@ -1,11 +1,12 @@
-import { SetStateAction, useEffect, useState } from "react"
-import useSpotify from "../../hooks/useSpotify"
+import { useEffect, useState } from "react"
 
+import useSpotify from "../../hooks/useSpotify"
 import Tracks from "../shared/Tracks"
 
 export default function Liked() {
     const spotifyApi = useSpotify()
     const [ tracks, setTracks ] = useState<string[]>([])
+    const [ totalTracks, setTotalTracks ] = useState(0)
     const [ offset, setOffset ] = useState(0)
 
     useEffect(() => {
@@ -17,6 +18,8 @@ export default function Liked() {
                     } else {
                         setTracks(data.body.items)
                     }
+
+                    setTotalTracks(data.body.total)
                 })
                 .catch(function(err: Error) {
                     console.log('Something went wrong!', err)
@@ -39,7 +42,7 @@ export default function Liked() {
                         Liked tracks
                     </h5>
                     <p className="mb-2 font-normal text-gray-700 dark:text-gray-400">
-                        {tracks?.length} tracks
+                        {totalTracks} tracks
                     </p>
                 </div>
             </a>
