@@ -20,7 +20,7 @@ export default function MyAlbums() {
     }, [spotifyApi.getAccessToken()])
 
     return (
-        <div className="px-4 mt-6 mx-8 sm:px-6 lg:px-8">
+        <div className="px-4 mt-6 mx-8 sm:px-6 lg:px-8 mb-40">
             <Cards playlists={albums} title="Albums" href="albums" />
         </div>
     )
