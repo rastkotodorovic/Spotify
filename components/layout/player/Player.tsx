@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react"
 import LeftSide from './LeftSide'
 import RightSide from "./RightSide"
 import Center from "./Center"
-import { isPlayingState, trackIdState } from "../../../atoms/trackAtom"
+import {isPlayingState, seekState, trackIdState} from "../../../atoms/trackAtom"
 import useSpotify from "../../../hooks/useSpotify"
 import useTrack from "../../../hooks/useTrack"
 
@@ -14,6 +14,7 @@ export default function Player() {
     const spotifyApi = useSpotify()
     const [ trackId, setTrackId ] = useRecoilState(trackIdState)
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
+    const [ seek, setSeek ] = useRecoilState(seekState)
     const track = useTrack()
 
     useEffect(() => {
@@ -23,20 +24,25 @@ export default function Player() {
     }, [trackId, spotifyApi, session])
 
     const getCurrentTrack = () => {
-        if (! track) {
-            spotifyApi.getMyCurrentPlayingTrack()
-                .then((data) => setTrackId(data.body?.item?.id))
+        spotifyApi.getMyCurrentPlayingTrack()
+            .then((data) => setTrackId(data.body?.item?.id))
 
-            spotifyApi.getMyCurrentPlaybackState()
-                .then((data) => setIsPlaying(data.body?.is_playing))
-        }
+        spotifyApi.getMyCurrentPlaybackState()
+            .then((data) => {
+                setSeek(data.body.progress_ms)
+                setIsPlaying(data.body?.is_playing)
+            })
+    }
+
+    const changeSong = () => {
+        getCurrentTrack()
     }
 
     return (
         <div className="h-24 bg-gray-100 border-t border-gray-200 text-black grid grid-cols-3 text-xs md:text-base px-2 md:px-8">
             <LeftSide track={track} />
 
-            <Center spotifyApi={spotifyApi} track={track} />
+            <Center spotifyApi={spotifyApi} track={track} changeSong={changeSong} />
 
             <RightSide spotifyApi={spotifyApi} />
         </div>

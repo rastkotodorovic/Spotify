@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 
 import { isPlayingState, seekState, trackIdState } from "../../atoms/trackAtom"
 import useSpotify from "../../hooks/useSpotify"
@@ -11,16 +11,17 @@ type Props = {
     setIsFollowed: { (offset: boolean[]): void }
     number: number
     lastTrack?: any
+    playlist?: any
 }
 
-export default function Track({ track, number, isFollowed, setIsFollowed, lastTrack }: Props) {
+export default function Track({ track, number, isFollowed, setIsFollowed, lastTrack, playlist }: Props) {
     const spotifyApi = useSpotify()
     const [ trackId, setTrackId ] = useRecoilState(trackIdState)
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
     const [ seek, setSeek ] = useRecoilState(seekState)
 
     const playSong = () => {
-        spotifyApi.play({ uris: [ track.uri ] })
+        spotifyApi.play({ context_uri: playlist.uri, offset: { position: number } })
             .then(function() {
                 setTrackId(track.id)
                 setSeek(0)

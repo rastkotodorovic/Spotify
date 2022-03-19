@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useState } from "react"
 import {
     FastForwardIcon,
     PauseIcon,
@@ -13,9 +13,10 @@ import { debounce } from 'lodash'
 import { isPlayingState, seekState } from "../../../atoms/trackAtom"
 import millisToMinutesAndSeconds from "../../../lib/time"
 
-export default function Center({ spotifyApi, track }) {
+export default function Center({ spotifyApi, track, changeSong }) {
     const [ isPlaying, setIsPlaying ] = useRecoilState(isPlayingState)
     const [ seek, setSeek ] = useRecoilState(seekState)
+    const [ shuffle, setShuffle ] = useState(false)
 
     const handlePlayPause = () => {
         spotifyApi.getMyCurrentPlaybackState()
@@ -34,9 +35,8 @@ export default function Center({ spotifyApi, track }) {
             })
     }
 
+    let interval
     useEffect(() => {
-        let interval
-
         if (isPlaying) {
             interval = setInterval(() => {
                 setSeek((seek) => seek + 1000)
@@ -54,9 +54,8 @@ export default function Center({ spotifyApi, track }) {
 
     useEffect(() => {
         if (seek > track?.duration_ms) {
-            spotifyApi.pause()
-            setIsPlaying(false)
-            setSeek(0)
+            clearInterval(interval)
+            changeSong()
         }
     }, [seek])
 
@@ -77,27 +76,38 @@ export default function Center({ spotifyApi, track }) {
         []
     )
 
+    const handleShuffle = () => {
+        spotifyApi.setShuffle(! shuffle)
+        setShuffle(! shuffle)
+    }
+
     return (
         <>
             <div className="flex flex-col mt-3">
                 <div className="flex items-center justify-center">
-                    <SwitchHorizontalIcon className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out" />
+                    <SwitchHorizontalIcon
+                        className={`btn-player ${shuffle ? 'fill-green-500' : ''}`}
+                        onClick={handleShuffle}
+                    />
                     <RewindIcon
                         onClick={() => spotifyApi.skipToPrevious()}
-                        className="ml-10 w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
+                        className="ml-10 btn-player"
                     />
                     {isPlaying ? (
-                        <PauseIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 hover:fill-gray-700 transition transform duration-100 ease-out" />
+                        <PauseIcon onClick={handlePlayPause} className="btn-play" />
                     ) : (
-                        <PlayIcon onClick={handlePlayPause} className="mx-10 w-11 h-11 hover:fill-gray-700 transition transform duration-100 ease-out" />
+                        <PlayIcon onClick={handlePlayPause} className="btn-play" />
                     )}
 
                     <FastForwardIcon
                         onClick={() => spotifyApi.skipToNext()}
-                        className="mr-10 w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
+                        className="mr-10 btn-player"
                     />
 
-                    <ReplyIcon className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"/>
+                    <ReplyIcon
+                        className="btn-player"
+                        onClick={() => spotifyApi.setRepeat('track')}
+                    />
                 </div>
                 <div className="flex">
                     <div className="flex-none w-14 text-center text-gray-500 text-sm mt-1">

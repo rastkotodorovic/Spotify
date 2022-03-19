@@ -48,7 +48,7 @@ export default function SelectedPlaylist() {
                 <CurrentCard type="playlist" playlist={playlist} />
             </div>
 
-            <Tracks tracks={tracks} setOffset={setOffset} />
+            <Tracks tracks={tracks} setOffset={setOffset} playlist={playlist} />
         </>
     )
 }

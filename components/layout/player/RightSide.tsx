@@ -26,7 +26,7 @@ export default function RightSide({ spotifyApi }) {
     return (
         <div className="flex items-center space-x-3 md:space-x-4 justify-end">
             <VolumeOffIcon
-                className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
+                className="btn-player"
                 onClick={() => setVolume(0)}
             />
             <input
@@ -38,7 +38,7 @@ export default function RightSide({ spotifyApi }) {
                 max={100}
             />
             <VolumeUpIcon
-                className="w-5 h-5 hover:fill-gray-500 transition transform duration-100 ease-out"
+                className="btn-player"
                 onClick={() => setVolume(100)}
             />
         </div>

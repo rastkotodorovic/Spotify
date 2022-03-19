@@ -7,6 +7,7 @@ type Props = {
     tracks: any[]
     offset?: number|null
     setOffset?: { (offset: number): void } | null
+    playlist?: any
 }
 
 interface RefObject {
@@ -14,7 +15,7 @@ interface RefObject {
     observe: (node) => void
 }
 
-export default function Tracks({ tracks, offset = null, setOffset = null }: Props) {
+export default function Tracks({ tracks, offset = null, setOffset = null, playlist }: Props) {
     const spotifyApi = useSpotify()
     const [ isFollowed, setIsFollowed ] = useState<boolean[]>([])
 
@@ -88,6 +89,7 @@ export default function Tracks({ tracks, offset = null, setOffset = null }: Prop
                                     number={index}
                                     isFollowed={isFollowed}
                                     setIsFollowed={setIsFollowed}
+                                    playlist={playlist}
                                 />
                             )
                         }
